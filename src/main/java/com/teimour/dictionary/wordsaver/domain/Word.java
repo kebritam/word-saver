@@ -45,7 +45,6 @@ public class Word {
     @JoinTable(name = "word_tag")
     private Set<String> tags;// TODO: 10/14/2020 improve tags
 
-    // TODO: 10/15/2020 Test these bellow... maybe just one way association worked
     @ManyToMany
     @JoinTable(name = "synonyms",
     joinColumns = @JoinColumn(name = "word_id"),
@@ -53,20 +52,9 @@ public class Word {
     private Set<Word> synonyms;
 
     @ManyToMany
-    @JoinTable(name = "synonyms",
-    joinColumns = @JoinColumn(name = "synonym_id"),
-    inverseJoinColumns = @JoinColumn(name = "word_id"))
-    private Set<Word> synonymOf;
-
-    @ManyToMany
     @JoinTable(name = "antonyms",
             joinColumns = @JoinColumn(name = "word_id"),
             inverseJoinColumns = @JoinColumn(name = "antonym_id"))
     private Set<Word> antonyms;
 
-    @ManyToMany
-    @JoinTable(name = "antonyms",
-            joinColumns = @JoinColumn(name = "antonym_id"),
-            inverseJoinColumns = @JoinColumn(name = "word_id"))
-    private Set<Word> antonymOf;
 }
