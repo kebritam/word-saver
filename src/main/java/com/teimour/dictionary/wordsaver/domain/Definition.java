@@ -1,7 +1,6 @@
 package com.teimour.dictionary.wordsaver.domain;
 
-import lombok.Getter;
-import lombok.Setter;
+import lombok.*;
 
 import javax.persistence.*;
 import java.util.Set;
@@ -13,8 +12,11 @@ import java.util.UUID;
  * @date 14/10/2020
  */
 
+@Builder
 @Getter
 @Setter
+@NoArgsConstructor
+@AllArgsConstructor
 @Entity
 public class Definition {
 
@@ -27,6 +29,6 @@ public class Definition {
     private String definitionValue;
 
     @OneToMany(cascade = CascadeType.ALL)
-    @JoinColumn(name = "definiton_id")
+    @JoinColumn(name = "definition_id")
     private Set<Example> examples;
 }

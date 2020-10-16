@@ -1,7 +1,6 @@
 package com.teimour.dictionary.wordsaver.domain;
 
-import lombok.Getter;
-import lombok.Setter;
+import lombok.*;
 
 import javax.persistence.Entity;
 import javax.persistence.Id;
@@ -13,6 +12,9 @@ import java.util.UUID;
  * @date 14/10/2020
  */
 
+@Builder
+@NoArgsConstructor
+@AllArgsConstructor
 @Getter
 @Setter
 @Entity

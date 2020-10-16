@@ -1,9 +1,9 @@
 package com.teimour.dictionary.wordsaver.domain;
 
-import lombok.Getter;
-import lombok.Setter;
+import lombok.*;
 
 import javax.persistence.*;
+import java.util.HashSet;
 import java.util.Set;
 import java.util.UUID;
 
@@ -13,6 +13,9 @@ import java.util.UUID;
  * @date 14/10/2020
  */
 
+@Builder
+@NoArgsConstructor
+@AllArgsConstructor
 @Getter
 @Setter
 @Entity
