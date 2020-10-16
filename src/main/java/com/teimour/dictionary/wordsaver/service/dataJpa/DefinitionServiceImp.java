@@ -3,8 +3,10 @@ package com.teimour.dictionary.wordsaver.service.dataJpa;
 import com.teimour.dictionary.wordsaver.domain.Definition;
 import com.teimour.dictionary.wordsaver.repository.DefinitionRepository;
 import com.teimour.dictionary.wordsaver.service.DefinitionService;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 
+import java.util.Optional;
 import java.util.Set;
 import java.util.UUID;
 
@@ -14,6 +16,7 @@ import java.util.UUID;
  * @date 16/10/2020
  */
 
+@Slf4j
 @Service
 public class DefinitionServiceImp implements DefinitionService {
 
@@ -25,26 +28,32 @@ public class DefinitionServiceImp implements DefinitionService {
 
     @Override
     public Definition findById(UUID uuid) {
-        return null;
+        Optional<Definition> definition=definitionRepository.findById(uuid);
+        if (definition.isPresent())
+            return definition.get();
+        else
+            throw new NullPointerException();// TODO: 10/16/2020  implement better exception
     }
 
     @Override
     public Set<Definition> findAll() {
-        return null;
+        return Set.copyOf(definitionRepository.findAll());
     }
 
     @Override
     public Definition save(Definition object) {
-        return null;
+        return definitionRepository.save(object);
     }
 
     @Override
     public void delete(Definition object) {
-
+        definitionRepository.delete(object);
+        log.info("object deleted.");
     }
 
     @Override
     public void deleteById(UUID uuid) {
-
+        definitionRepository.deleteById(uuid);
+        log.info("object deleted.");
     }
 }

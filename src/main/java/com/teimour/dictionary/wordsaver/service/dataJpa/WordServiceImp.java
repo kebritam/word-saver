@@ -3,8 +3,10 @@ package com.teimour.dictionary.wordsaver.service.dataJpa;
 import com.teimour.dictionary.wordsaver.domain.Word;
 import com.teimour.dictionary.wordsaver.repository.WordRepository;
 import com.teimour.dictionary.wordsaver.service.WordService;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 
+import java.util.Optional;
 import java.util.Set;
 import java.util.UUID;
 
@@ -14,6 +16,7 @@ import java.util.UUID;
  * @date 16/10/2020
  */
 
+@Slf4j
 @Service
 public class WordServiceImp implements WordService {
 
@@ -25,26 +28,33 @@ public class WordServiceImp implements WordService {
 
     @Override
     public Word findById(UUID uuid) {
-        return null;
+        Optional<Word> word=wordRepository.findById(uuid);
+        if (word.isPresent()){
+            return word.get();
+        } else {
+            throw new NullPointerException();// TODO: 10/16/2020 implement better exception
+        }
     }
 
     @Override
     public Set<Word> findAll() {
-        return null;
+        return Set.copyOf(wordRepository.findAll());
     }
 
     @Override
     public Word save(Word object) {
-        return null;
+        return wordRepository.save(object);
     }
 
     @Override
     public void delete(Word object) {
-
+        wordRepository.delete(object);
+        log.info("word deleted");
     }
 
     @Override
     public void deleteById(UUID uuid) {
-
+        wordRepository.deleteById(uuid);
+        log.info("word deleted");
     }
 }
