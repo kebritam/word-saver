@@ -37,8 +37,23 @@ public class WordServiceImp implements WordService {
     }
 
     @Override
+    public Word findByWord(String word) {
+        Optional<Word> wordOptional=wordRepository.findByWordValueIgnoreCase(word);
+        if (wordOptional.isPresent()){
+            return wordOptional.get();
+        } else {
+            throw new NullPointerException(); // TODO: 10/18/2020 implement better exception 
+        }
+    }
+
+    @Override
     public Set<Word> findAll() {
         return Set.copyOf(wordRepository.findAll());
+    }
+
+    @Override
+    public Set<Word> findAllByWord(String word) {
+        return wordRepository.findAllByWordValue(word);
     }
 
     @Override

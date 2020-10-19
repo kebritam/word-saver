@@ -2,6 +2,7 @@ package com.teimour.dictionary.wordsaver.service;
 
 import com.teimour.dictionary.wordsaver.domain.Word;
 
+import java.util.Set;
 import java.util.UUID;
 
 /**
@@ -11,4 +12,8 @@ import java.util.UUID;
  */
 
 public interface WordService extends CrudService<Word, UUID> {
+
+    Word findByWord(String word);
+
+    Set<Word> findAllByWord(String word);
 }
