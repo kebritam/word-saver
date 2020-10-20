@@ -3,7 +3,6 @@ package com.teimour.dictionary.wordsaver.domain;
 import lombok.*;
 
 import javax.persistence.*;
-import java.util.HashSet;
 import java.util.Set;
 import java.util.UUID;
 
@@ -42,10 +41,10 @@ public class Word {
     private String phonetic; // TODO: 10/14/2020 improve phonetics
 
     @ManyToMany
-    @JoinTable(name = "word_tag",
+    @JoinTable(name = "word_category",
         joinColumns = @JoinColumn(name = "word_id"),
-        inverseJoinColumns = @JoinColumn(name = "tag_id"))
-    private Set<Tag> tags;
+        inverseJoinColumns = @JoinColumn(name = "category_id"))
+    private Set<Category> categories;
 
     @ManyToMany
     @JoinTable(name = "synonyms",

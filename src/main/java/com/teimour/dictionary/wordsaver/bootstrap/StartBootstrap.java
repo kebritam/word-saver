@@ -21,15 +21,15 @@ public class StartBootstrap implements CommandLineRunner {
     private final ExampleService exampleService;
     private final NoteService noteService;
     private final WordService wordService;
-    private final TagService tagService;
+    private final CategoryService categoryService;
 
     public StartBootstrap(DefinitionService definitionService, ExampleService exampleService,
-                          NoteService noteService, WordService wordService, TagService tagService) {
+                          NoteService noteService, WordService wordService, CategoryService categoryService) {
         this.definitionService = definitionService;
         this.exampleService = exampleService;
         this.noteService = noteService;
         this.wordService = wordService;
-        this.tagService = tagService;
+        this.categoryService = categoryService;
     }
 
     @Override
@@ -48,10 +48,10 @@ public class StartBootstrap implements CommandLineRunner {
         Note note1= Note.builder()
                 .notesValue("it's slang.").build();
 
-        Tag tag1= Tag.builder()
-                .tagName("conversation").build();
-        Tag tag2= Tag.builder()
-                .tagName("meeting").build();
+        Category category1 = Category.builder()
+                .categoryName("conversation").build();
+        Category category2 = Category.builder()
+                .categoryName("meeting").build();
 
         Word word1= Word.builder()
                 .wordClasses(Set.of(WordClasses.NOUN))
@@ -61,11 +61,11 @@ public class StartBootstrap implements CommandLineRunner {
                 .phonetic("hei")
                 .antonyms(new HashSet<>())
                 .synonyms(new HashSet<>())
-                .tags(Set.of(tag1, tag2))
+                .categories(Set.of(category1, category2))
                 .build();
 
-        tagService.save(tag1);
-        tagService.save(tag2);
+        categoryService.save(category1);
+        categoryService.save(category2);
         exampleService.save(example1);
         exampleService.save(example2);
         definitionService.save(definition1);
@@ -87,10 +87,10 @@ public class StartBootstrap implements CommandLineRunner {
         Note note2= Note.builder()
                 .notesValue("it's middle polite.").build();
 
-        Tag tag3= Tag.builder()
-                .tagName("bump into").build();
-        Tag tag4= Tag.builder()
-                .tagName("shy").build();
+        Category category3 = Category.builder()
+                .categoryName("bump into").build();
+        Category category4 = Category.builder()
+                .categoryName("shy").build();
 
         Word word2= Word.builder()
                 .wordClasses(Set.of(WordClasses.NOUN))
@@ -100,11 +100,11 @@ public class StartBootstrap implements CommandLineRunner {
                 .phonetic("hai")
                 .antonyms(new HashSet<>())
                 .synonyms(new HashSet<>())
-                .tags(Set.of(tag3, tag4))
+                .categories(Set.of(category3, category4))
                 .build();
 
-        tagService.save(tag3);
-        tagService.save(tag4);
+        categoryService.save(category3);
+        categoryService.save(category4);
         exampleService.save(example3);
         exampleService.save(example4);
         definitionService.save(definition2);
@@ -127,8 +127,8 @@ public class StartBootstrap implements CommandLineRunner {
         Note note3= Note.builder()
                 .notesValue("it's very polite.").build();
 
-        Tag tag5= Tag.builder()
-                .tagName("respect").build();
+        Category category5 = Category.builder()
+                .categoryName("respect").build();
 
         Word word3= Word.builder()
                 .wordClasses(Set.of(WordClasses.NOUN))
@@ -138,10 +138,10 @@ public class StartBootstrap implements CommandLineRunner {
                 .phonetic("hello")
                 .antonyms(new HashSet<>())
                 .synonyms(new HashSet<>())
-                .tags(Set.of(tag5, tag2))
+                .categories(Set.of(category5, category2))
                 .build();
 
-        tagService.save(tag5);
+        categoryService.save(category5);
         exampleService.save(example5);
         exampleService.save(example6);
         definitionService.save(definition3);
@@ -163,10 +163,10 @@ public class StartBootstrap implements CommandLineRunner {
         Note note4= Note.builder()
                 .notesValue("it's kind of slang.").build();
 
-        Tag tag6= Tag.builder()
-                .tagName("end").build();
-        Tag tag7= Tag.builder()
-                .tagName("bless").build();
+        Category category6 = Category.builder()
+                .categoryName("end").build();
+        Category category7 = Category.builder()
+                .categoryName("bless").build();
 
         Word word4= Word.builder()
                 .wordClasses(Set.of(WordClasses.NOUN))
@@ -176,11 +176,11 @@ public class StartBootstrap implements CommandLineRunner {
                 .phonetic("bai")
                 .antonyms(new HashSet<>())
                 .synonyms(new HashSet<>())
-                .tags(Set.of(tag6, tag7))
+                .categories(Set.of(category6, category7))
                 .build();
 
-        tagService.save(tag6);
-        tagService.save(tag7);
+        categoryService.save(category6);
+        categoryService.save(category7);
         exampleService.save(example7);
         exampleService.save(example8);
         definitionService.save(definition4);

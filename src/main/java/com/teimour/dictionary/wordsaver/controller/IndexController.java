@@ -1,11 +1,10 @@
 package com.teimour.dictionary.wordsaver.controller;
 
-import com.teimour.dictionary.wordsaver.service.TagService;
+import com.teimour.dictionary.wordsaver.service.CategoryService;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.servlet.ModelAndView;
 
 /**
  * @author kebritam
@@ -17,15 +16,15 @@ import org.springframework.web.servlet.ModelAndView;
 @RequestMapping({"","/","/index"})
 public class IndexController {
 
-    private final TagService tagService;
+    private final CategoryService categoryService;
 
-    public IndexController(TagService tagService) {
-        this.tagService = tagService;
+    public IndexController(CategoryService categoryService) {
+        this.categoryService = categoryService;
     }
 
     @GetMapping
     public String getIndex(Model model){
-        model.addAttribute("tagList", tagService.findAll());
+        model.addAttribute("categoryList", categoryService.findAll());
         return "index";
     }
 }

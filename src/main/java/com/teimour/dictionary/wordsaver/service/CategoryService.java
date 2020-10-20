@@ -1,6 +1,6 @@
 package com.teimour.dictionary.wordsaver.service;
 
-import com.teimour.dictionary.wordsaver.domain.Tag;
+import com.teimour.dictionary.wordsaver.domain.Category;
 
 import java.util.UUID;
 
@@ -10,5 +10,5 @@ import java.util.UUID;
  * @date 20/10/2020
  */
 
-public interface TagService extends CrudService<Tag, UUID> {
+public interface CategoryService extends CrudService<Category, UUID> {
 }

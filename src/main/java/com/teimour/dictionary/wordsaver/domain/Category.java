@@ -17,11 +17,11 @@ import java.util.UUID;
 @AllArgsConstructor
 @NoArgsConstructor
 @Entity
-public class Tag {
+public class Category {
 
     @Id
     private final UUID id=UUID.randomUUID();
 
-    private String tagName;
+    private String categoryName;
 
 }
