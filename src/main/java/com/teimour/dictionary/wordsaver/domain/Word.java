@@ -41,20 +41,22 @@ public class Word {
 
     private String phonetic; // TODO: 10/14/2020 improve phonetics
 
-    @ElementCollection
-    @JoinTable(name = "word_tag")
-    private Set<String> tags;// TODO: 10/14/2020 improve tags
+    @ManyToMany
+    @JoinTable(name = "word_tag",
+        joinColumns = @JoinColumn(name = "word_id"),
+        inverseJoinColumns = @JoinColumn(name = "tag_id"))
+    private Set<Tag> tags;
 
     @ManyToMany
     @JoinTable(name = "synonyms",
-    joinColumns = @JoinColumn(name = "word_id"),
-    inverseJoinColumns = @JoinColumn(name = "synonym_id"))
+        joinColumns = @JoinColumn(name = "word_id"),
+        inverseJoinColumns = @JoinColumn(name = "synonym_id"))
     private Set<Word> synonyms;
 
     @ManyToMany
     @JoinTable(name = "antonyms",
-            joinColumns = @JoinColumn(name = "word_id"),
-            inverseJoinColumns = @JoinColumn(name = "antonym_id"))
+        joinColumns = @JoinColumn(name = "word_id"),
+        inverseJoinColumns = @JoinColumn(name = "antonym_id"))
     private Set<Word> antonyms;
 
 }
