@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+  <meta charset="UTF-8">
+  <title th:text="${category.categoryName}">Title</title>
+</head>
+<body>
+  <table id="vets" class="table table-striped">
+    <thead>
+    <tr>
+      <th>ID</th>
+      <th>WORD</th>
+      <th>VIEW</th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr th:each="word : ${words}">
+      <td th:text="${word.uuid}">list of word ids</td>
+      <td th:text="${word.wordValue}">list of words</td>
+      <td><a href="#" th:href="@{'/word/'+${word.wordValue}+'/show'}" target="_blank">View</a></td>
+    </tr>
+    </tbody>
+  </table>
+</body>
+</html>

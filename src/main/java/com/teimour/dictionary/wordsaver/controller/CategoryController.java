@@ -28,6 +28,7 @@ public class CategoryController {
     public String showCategory(Model model, @PathVariable String name){
         Category category=categoryService.findByName(name);
         model.addAttribute("category", category);
+        model.addAttribute("words", category.getWords());
         return "category";
     }
 }

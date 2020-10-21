@@ -2,8 +2,8 @@ package com.teimour.dictionary.wordsaver.domain;
 
 import lombok.*;
 
-import javax.persistence.Entity;
-import javax.persistence.Id;
+import javax.persistence.*;
+import java.util.Set;
 import java.util.UUID;
 
 /**
@@ -24,4 +24,9 @@ public class Category {
 
     private String categoryName;
 
+    @ManyToMany
+    @JoinTable(name = "word_category",
+            joinColumns = @JoinColumn(name = "category_id"),
+            inverseJoinColumns = @JoinColumn(name = "word_id"))
+    private Set<Word> words;
 }

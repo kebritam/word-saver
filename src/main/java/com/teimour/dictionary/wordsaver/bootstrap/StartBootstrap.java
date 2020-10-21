@@ -48,11 +48,6 @@ public class StartBootstrap implements CommandLineRunner {
         Note note1= Note.builder()
                 .notesValue("it's slang.").build();
 
-        Category category1 = Category.builder()
-                .categoryName("conversation").build();
-        Category category2 = Category.builder()
-                .categoryName("meeting").build();
-
         Word word1= Word.builder()
                 .wordClasses(Set.of(WordClasses.NOUN))
                 .wordValue("hey")
@@ -61,16 +56,22 @@ public class StartBootstrap implements CommandLineRunner {
                 .phonetic("hei")
                 .antonyms(new HashSet<>())
                 .synonyms(new HashSet<>())
-                .categories(Set.of(category1, category2))
                 .build();
 
-        categoryService.save(category1);
-        categoryService.save(category2);
+        Category category1 = Category.builder()
+                .categoryName("conversation")
+                .words(Set.of(word1)).build();
+        Category category2 = Category.builder()
+                .categoryName("meeting")
+                .words(Set.of(word1)).build();
+
         exampleService.save(example1);
         exampleService.save(example2);
         definitionService.save(definition1);
         noteService.save(note1);
         wordService.save(word1);
+        categoryService.save(category1);
+        categoryService.save(category2);
 
 
 
@@ -87,11 +88,6 @@ public class StartBootstrap implements CommandLineRunner {
         Note note2= Note.builder()
                 .notesValue("it's middle polite.").build();
 
-        Category category3 = Category.builder()
-                .categoryName("bump into").build();
-        Category category4 = Category.builder()
-                .categoryName("shy").build();
-
         Word word2= Word.builder()
                 .wordClasses(Set.of(WordClasses.NOUN))
                 .wordValue("hi")
@@ -100,16 +96,22 @@ public class StartBootstrap implements CommandLineRunner {
                 .phonetic("hai")
                 .antonyms(new HashSet<>())
                 .synonyms(new HashSet<>())
-                .categories(Set.of(category3, category4))
                 .build();
 
-        categoryService.save(category3);
-        categoryService.save(category4);
+        Category category3 = Category.builder()
+                .categoryName("bump into")
+                .words(Set.of(word2)).build();
+        Category category4 = Category.builder()
+                .categoryName("shy")
+                .words(Set.of(word2)).build();
+
         exampleService.save(example3);
         exampleService.save(example4);
         definitionService.save(definition2);
         noteService.save(note2);
         wordService.save(word2);
+        categoryService.save(category3);
+        categoryService.save(category4);
 
 
 
@@ -127,9 +129,6 @@ public class StartBootstrap implements CommandLineRunner {
         Note note3= Note.builder()
                 .notesValue("it's very polite.").build();
 
-        Category category5 = Category.builder()
-                .categoryName("respect").build();
-
         Word word3= Word.builder()
                 .wordClasses(Set.of(WordClasses.NOUN))
                 .wordValue("hello")
@@ -138,15 +137,18 @@ public class StartBootstrap implements CommandLineRunner {
                 .phonetic("hello")
                 .antonyms(new HashSet<>())
                 .synonyms(new HashSet<>())
-                .categories(Set.of(category5, category2))
                 .build();
 
-        categoryService.save(category5);
+        Category category5 = Category.builder()
+                .categoryName("respect")
+                .words(Set.of(word1, word3)).build();
+
         exampleService.save(example5);
         exampleService.save(example6);
         definitionService.save(definition3);
         noteService.save(note3);
         wordService.save(word3);
+        categoryService.save(category5);
 
 
 
@@ -160,32 +162,31 @@ public class StartBootstrap implements CommandLineRunner {
                 .examples(Set.of(example7,example8))
                 .wordClass(WordClasses.NOUN).build();
 
-        Note note4= Note.builder()
-                .notesValue("it's kind of slang.").build();
-
-        Category category6 = Category.builder()
-                .categoryName("end").build();
-        Category category7 = Category.builder()
-                .categoryName("bless").build();
 
         Word word4= Word.builder()
                 .wordClasses(Set.of(WordClasses.NOUN))
                 .wordValue("bye")
                 .definitions(Set.of(definition4))
-                .notes(note4)
+                .notes(note1)
                 .phonetic("bai")
                 .antonyms(new HashSet<>())
                 .synonyms(new HashSet<>())
-                .categories(Set.of(category6, category7))
                 .build();
 
-        categoryService.save(category6);
-        categoryService.save(category7);
+        Category category6 = Category.builder()
+                .categoryName("end")
+                .words(Set.of(word4)).build();
+        Category category7 = Category.builder()
+                .categoryName("bless")
+                .words(Set.of(word1, word4)).build();
+
         exampleService.save(example7);
         exampleService.save(example8);
         definitionService.save(definition4);
-        noteService.save(note4);
+        noteService.save(note1);
         wordService.save(word4);
+        categoryService.save(category6);
+        categoryService.save(category7);
 
 
         word1.getSynonyms().add(word2);

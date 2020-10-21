@@ -24,4 +24,9 @@ public class Example {
     private final UUID uuid=UUID.randomUUID();
 
     private String exampleValue;
+
+    @Override
+    public String toString() {
+        return exampleValue;
+    }
 }
