@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+  <meta charset="UTF-8">
+  <title th:text="${wordValue}">Title</title>
+</head>
+<body>
+<p th:text="'ID: '+${word.uuid}"></p>
+<p th:text="'Word: '+${word.wordValue}"></p>
+<p th:text="'Word classes: '+${word.getWordClasses()}"></p>
+<p th:text="'Phonetic: '+${word.phonetic}"></p>
+<table id="vets" class="table table-striped">
+  <thead>
+  <tr>
+    <th>WORD CLASS</th>
+    <th>DEFINITION</th>
+    <th>EXAMPLE</th>
+  </tr>
+  </thead>
+  <tbody>
+  <tr th:each="definition : ${word.definitions}">
+    <td th:text="${definition.wordClass}">word class of word</td>
+    <td th:text="${definition.definitionValue}">def value</td>
+    <td th:text="${definition.examples}"></td>
+  </tr>
+  </tbody>
+</table>
+<p th:text="'Synonyms: '+${word.synonyms}"></p>
+<p th:text="'Antonyms: '+${word.antonyms}"></p>
+<p th:text="'Notes: '+${word.notes.notesValue}"></p>
+</body>
+</html>

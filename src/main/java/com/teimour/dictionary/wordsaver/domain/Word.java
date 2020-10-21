@@ -41,12 +41,6 @@ public class Word {
     private String phonetic; // TODO: 10/14/2020 improve phonetics
 
     @ManyToMany
-    @JoinTable(name = "word_category",
-        joinColumns = @JoinColumn(name = "word_id"),
-        inverseJoinColumns = @JoinColumn(name = "category_id"))
-    private Set<Category> categories;
-
-    @ManyToMany
     @JoinTable(name = "synonyms",
         joinColumns = @JoinColumn(name = "word_id"),
         inverseJoinColumns = @JoinColumn(name = "synonym_id"))
@@ -58,4 +52,8 @@ public class Word {
         inverseJoinColumns = @JoinColumn(name = "antonym_id"))
     private Set<Word> antonyms;
 
+    @Override
+    public String toString() {
+        return wordValue;
+    }
 }
