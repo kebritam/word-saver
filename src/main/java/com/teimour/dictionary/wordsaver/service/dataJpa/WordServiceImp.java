@@ -82,5 +82,14 @@ public class WordServiceImp implements WordService {
         word2.getSynonyms().add(word1);
     }
 
+    @Override
+    public void addAntonym(Word word1, Word word2) {
+
+        word1.getAntonyms().forEach(word -> word2.getAntonyms().add(word));
+
+        word1.getAntonyms().add(word2);
+        word2.getAntonyms().add(word1);
+    }
+
 
 }
