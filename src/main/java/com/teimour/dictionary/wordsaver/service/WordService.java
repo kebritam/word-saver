@@ -16,4 +16,6 @@ public interface WordService extends CrudService<Word, UUID> {
     Word findByWord(String word);
 
     Set<Word> findAllByWord(String word);
+
+    void addSynonym(Word word1, Word word2);
 }

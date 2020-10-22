@@ -72,4 +72,15 @@ public class WordServiceImp implements WordService {
         wordRepository.deleteById(uuid);
         log.info("word deleted");
     }
+
+    @Override
+    public void addSynonym(Word word1, Word word2) {
+
+        word1.getSynonyms().forEach(word -> word2.getSynonyms().add(word));
+
+        word1.getSynonyms().add(word2);
+        word2.getSynonyms().add(word1);
+    }
+
+
 }
