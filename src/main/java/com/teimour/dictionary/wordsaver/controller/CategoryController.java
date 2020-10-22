@@ -2,11 +2,10 @@ package com.teimour.dictionary.wordsaver.controller;
 
 import com.teimour.dictionary.wordsaver.domain.Category;
 import com.teimour.dictionary.wordsaver.service.CategoryService;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.*;
 
 /**
  * @author kebritam
@@ -14,6 +13,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
  * @date 20/10/2020
  */
 
+@Slf4j
 @Controller
 @RequestMapping("/category")
 public class CategoryController {
@@ -30,5 +30,34 @@ public class CategoryController {
         model.addAttribute("category", category);
         model.addAttribute("words", category.getWords());
         return "category";
+    }
+
+    @GetMapping("/{name}/edit")
+    public String editCategory(Model model, @PathVariable String name){
+        model.addAttribute("category", categoryService.findByName(name));
+        return "categoryForm";
+    }
+
+    @PostMapping("{name}/edit")
+    public String submitEditCategory(@ModelAttribute Category category, @PathVariable String name){
+        Category savedCategory=categoryService.findByName(name);
+        savedCategory.setCategoryName(category.getCategoryName());
+        categoryService.save(savedCategory);
+
+        return "redirect:/";
+    }
+
+    @GetMapping("/new")
+    public String newCategory(Model model){
+        model.addAttribute("category", new Category());
+        return "categoryForm";
+    }
+
+    @PostMapping("/new")
+    public String submitNewCategory(@ModelAttribute Category category){
+        categoryService.save(category);
+        log.debug(category.getCategoryName());
+        log.debug(category.getId().toString());
+        return "redirect:/";
     }
 }
