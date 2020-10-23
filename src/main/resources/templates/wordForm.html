@@ -2,7 +2,7 @@
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head>
   <meta charset="UTF-8">
-  <title>Title</title>
+  <title th:text="${wordValue}">Title</title>
 </head>
 <body>
   <form action="#" th:object="${word}" method="post">
@@ -13,7 +13,27 @@
               th:value="${class}"
               th:text="${class}">Word_Class</option>
     </select>
+    
+    <label>Categories: </label>
+    <select name="categories" th:field="*{categories}" multiple="multiple">
+      <option th:each="category : ${allCategories}"
+              th:value="${category.id}"
+              th:text="${category.categoryName}">Categories</option>
+    </select>
 
+    <label>Synonyms: </label>
+    <select name="synonyms" th:field="*{synonyms}" multiple="multiple">
+      <option th:each="syno : ${allWords}"
+              th:value="${syno.uuid}"
+              th:text="${syno.wordValue}">Synonym Words</option>
+    </select>
+
+    <label>Antonyms: </label>
+    <select name="antonyms" th:field="*{antonyms}" multiple="multiple">
+      <option th:each="anto : ${allWords}"
+              th:value="${anto.uuid}"
+              th:text="${anto.wordValue}">antonym Words</option>
+    </select>
     <p>Phonetic: <input type="text" th:field="*{phonetic}"/></p>
     <p>Notes: <textarea rows="4" cols="50" th:field="*{notes}"></textarea></p>
 

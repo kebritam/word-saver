@@ -52,6 +52,9 @@ public class Word {
         inverseJoinColumns = @JoinColumn(name = "antonym_id"))
     private Set<Word> antonyms;
 
+    @ManyToMany(mappedBy = "words")
+    private Set<Category> categories;
+
     @Override
     public String toString() {
         return wordValue;

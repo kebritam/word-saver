@@ -2,6 +2,7 @@ package com.teimour.dictionary.wordsaver.controller;
 
 import com.teimour.dictionary.wordsaver.domain.Word;
 import com.teimour.dictionary.wordsaver.domain.WordClasses;
+import com.teimour.dictionary.wordsaver.service.CategoryService;
 import com.teimour.dictionary.wordsaver.service.WordService;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -18,15 +19,18 @@ import org.springframework.web.bind.annotation.*;
 public class WordController {
 
     private final WordService wordService;
+    private final CategoryService categoryService;
 
-    public WordController(WordService wordService) {
+    public WordController(WordService wordService, CategoryService categoryService) {
         this.wordService = wordService;
+        this.categoryService = categoryService;
     }
 
     @GetMapping("/{wordValue}/show")
     public String showWord(Model model, @PathVariable String wordValue){
-
-        model.addAttribute("word", wordService.findByWord(wordValue));
+        Word word=wordService.findByWord(wordValue);
+        model.addAttribute("categoryList", word.getCategories());
+        model.addAttribute("word", word);
         return "word";
     }
 
@@ -34,6 +38,8 @@ public class WordController {
     public String editWord(Model model, @PathVariable String wordValue){
         model.addAttribute("word", wordService.findByWord(wordValue));
         model.addAttribute("classes", WordClasses.values());
+        model.addAttribute("allCategories", categoryService.findAll());
+        model.addAttribute("allWords", wordService.findAll());
         return "wordForm";
     }
 
@@ -58,6 +64,7 @@ public class WordController {
     public String newWord(Model model){
         model.addAttribute("word", new Word());
         model.addAttribute("classes", WordClasses.values());
+        model.addAttribute("allCategories", categoryService.findAll());
         return "wordForm";
     }
 

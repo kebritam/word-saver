@@ -30,4 +30,9 @@ public class Category {
             joinColumns = @JoinColumn(name = "category_id"),
             inverseJoinColumns = @JoinColumn(name = "word_id"))
     private Set<Word> words;
+
+    @Override
+    public String toString() {
+        return categoryName;
+    }
 }
