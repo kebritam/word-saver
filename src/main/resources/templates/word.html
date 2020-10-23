@@ -28,5 +28,6 @@
 <p th:text="'Synonyms: '+${word.synonyms}"></p>
 <p th:text="'Antonyms: '+${word.antonyms}"></p>
 <p th:text="'Notes: '+${word.notes.notesValue}"></p>
+<a href="#" th:href="@{'/word/'+${word.wordValue}+'/edit'}">Edit</a>
 </body>
 </html>

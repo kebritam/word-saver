@@ -24,4 +24,9 @@ public class Note {
     private final UUID uuid=UUID.randomUUID();
 
     private String notesValue;
+
+    @Override
+    public String toString() {
+        return notesValue;
+    }
 }

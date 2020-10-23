@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+  <meta charset="UTF-8">
+  <title>Title</title>
+</head>
+<body>
+  <form action="#" th:object="${word}" method="post">
+    <p>Word value: <input type="text" th:field="*{wordValue}"/></p>
+    <label>Word Classes: </label>
+    <select name="word_classes" th:field="*{wordClasses}" multiple="multiple">
+      <option th:each="class : ${classes}"
+              th:value="${class}"
+              th:text="${class}">Word_Class</option>
+    </select>
+
+    <p>Phonetic: <input type="text" th:field="*{phonetic}"/></p>
+    <p>Notes: <textarea rows="4" cols="50" th:field="*{notes}"></textarea></p>
+
+
+    <p><input type="submit" value="Submit" /> <input type="reset" value="Reset" /></p>
+  </form>
+</body>
+</html>
