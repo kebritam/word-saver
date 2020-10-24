@@ -17,23 +17,16 @@ import java.util.Set;
 @Component
 public class StartBootstrap implements CommandLineRunner {
 
-    private final DefinitionService definitionService;
-    private final ExampleService exampleService;
-    private final NoteService noteService;
     private final WordService wordService;
     private final CategoryService categoryService;
 
-    public StartBootstrap(DefinitionService definitionService, ExampleService exampleService,
-                          NoteService noteService, WordService wordService, CategoryService categoryService) {
-        this.definitionService = definitionService;
-        this.exampleService = exampleService;
-        this.noteService = noteService;
+    public StartBootstrap(WordService wordService, CategoryService categoryService) {
         this.wordService = wordService;
         this.categoryService = categoryService;
     }
 
     @Override
-    public void run(String... args) throws Exception {
+    public void run(String... args) {
 
         Example example1= Example.builder()
                 .exampleValue("hey kamran what are you doing.").build();
@@ -65,10 +58,6 @@ public class StartBootstrap implements CommandLineRunner {
                 .categoryName("meeting")
                 .words(Set.of(word1)).build();
 
-        exampleService.save(example1);
-        exampleService.save(example2);
-        definitionService.save(definition1);
-        noteService.save(note1);
         wordService.save(word1);
         categoryService.save(category1);
         categoryService.save(category2);
@@ -105,10 +94,6 @@ public class StartBootstrap implements CommandLineRunner {
                 .categoryName("shy")
                 .words(Set.of(word2)).build();
 
-        exampleService.save(example3);
-        exampleService.save(example4);
-        definitionService.save(definition2);
-        noteService.save(note2);
         wordService.save(word2);
         categoryService.save(category3);
         categoryService.save(category4);
@@ -143,10 +128,6 @@ public class StartBootstrap implements CommandLineRunner {
                 .categoryName("respect")
                 .words(Set.of(word1, word3)).build();
 
-        exampleService.save(example5);
-        exampleService.save(example6);
-        definitionService.save(definition3);
-        noteService.save(note3);
         wordService.save(word3);
         categoryService.save(category5);
 
@@ -180,10 +161,6 @@ public class StartBootstrap implements CommandLineRunner {
                 .categoryName("bless")
                 .words(Set.of(word1, word4)).build();
 
-        exampleService.save(example7);
-        exampleService.save(example8);
-        definitionService.save(definition4);
-        noteService.save(note1);
         wordService.save(word4);
         categoryService.save(category6);
         categoryService.save(category7);

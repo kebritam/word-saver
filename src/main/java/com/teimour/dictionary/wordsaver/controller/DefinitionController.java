@@ -71,7 +71,6 @@ public class DefinitionController {
         savedDefinition.setExamples(definition.getExamples());
         savedWord.getDefinitions().add(savedDefinition);
         wordService.save(savedWord);
-        definitionService.save(savedDefinition);
         return "redirect:/word/"+wordValue+"/show";
     }
 }

@@ -30,7 +30,7 @@ public class Word {
     @JoinTable(name = "word_class")
     private Set<WordClasses> wordClasses;
 
-    @OneToMany
+    @OneToMany(cascade = CascadeType.ALL)
     @JoinColumn(name = "word_id")
     private Set<Definition> definitions;
 
@@ -38,7 +38,7 @@ public class Word {
     @JoinColumn(name = "note_id")
     private Note notes;
 
-    private String phonetic; // TODO: 10/14/2020 improve phonetics
+    private String phonetic;
 
     @ManyToMany
     @JoinTable(name = "synonyms",

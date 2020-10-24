@@ -51,9 +51,9 @@ public class WordController {
         savedWord.setPhonetic(word.getPhonetic());
         savedWord.setWordClasses(word.getWordClasses());
 
-//        savedWord.setAntonyms(word.getAntonyms());// TODO: 10/23/2020 should be implemented in wordForm.html
-//        savedWord.setSynonyms(word.getSynonyms());// TODO: 10/23/2020 should be implemented in wordForm.html
-//        savedWord.setDefinitions(word.getDefinitions());// TODO: 10/23/2020 should be implemented in wordForm.html
+        savedWord.setAntonyms(word.getAntonyms());
+        savedWord.setSynonyms(word.getSynonyms());
+        savedWord.setDefinitions(word.getDefinitions());
 
         wordService.save(savedWord);
 
