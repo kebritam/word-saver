@@ -19,7 +19,6 @@
       <td th:text="${word.uuid}">list of word ids</td>
       <td th:text="${word.wordValue}">list of words</td>
       <td><a href="#" th:href="@{'/word/'+${word.wordValue}+'/show'}" target="_blank">View</a></td>
-      <td><a href="#" th:href="@{'/word/'+${word.wordValue}+'/edit'}">Edit</a></td>
     </tr>
     </tbody>
   </table>

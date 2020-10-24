@@ -34,7 +34,7 @@ public class Word {
     @JoinColumn(name = "word_id")
     private Set<Definition> definitions;
 
-    @OneToOne
+    @OneToOne(cascade = CascadeType.ALL)
     @JoinColumn(name = "note_id")
     private Note notes;
 

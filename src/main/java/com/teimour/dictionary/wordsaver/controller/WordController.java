@@ -65,6 +65,7 @@ public class WordController {
         model.addAttribute("word", new Word());
         model.addAttribute("classes", WordClasses.values());
         model.addAttribute("allCategories", categoryService.findAll());
+        model.addAttribute("allWords", wordService.findAll());
         return "wordForm";
     }
 

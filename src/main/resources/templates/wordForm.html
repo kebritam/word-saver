@@ -35,7 +35,7 @@
               th:text="${anto.wordValue}">antonym Words</option>
     </select>
     <p>Phonetic: <input type="text" th:field="*{phonetic}"/></p>
-    <p>Notes: <textarea rows="4" cols="50" th:field="*{notes}"></textarea></p>
+    <p>Notes: <textarea rows="4" cols="50" th:field="*{notes.notesValue}"></textarea></p>
 
 
     <p><input type="submit" value="Submit" /> <input type="reset" value="Reset" /></p>

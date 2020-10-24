@@ -9,6 +9,7 @@
 <p th:text="'Word: '+${word.wordValue}"></p>
 <p th:text="'Word classes: '+${word.getWordClasses()}"></p>
 <p th:text="'Phonetic: '+${word.phonetic}"></p>
+<a href="#" th:href="@{'/word/'+${word.wordValue}+'/definition/new'}">Add definition</a>
 <table id="vets" class="table table-striped">
   <thead>
   <tr>
@@ -22,6 +23,8 @@
     <td th:text="${definition.wordClass}">word class of word</td>
     <td th:text="${definition.definitionValue}">def value</td>
     <td th:text="${definition.examples}"></td>
+    <td><a href="#" th:href="@{'/word/'+${word.wordValue}+'/definition/'+${definition.uuid}+'/edit'}">Edit</a></td>
+    <td><a href="#" th:href="@{'/word/'+${word.wordValue}+'/definition/'+${definition.uuid}+'/remove'}">Remove</a></td>
   </tr>
   </tbody>
 </table>

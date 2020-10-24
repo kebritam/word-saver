@@ -1,0 +1,20 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+  <meta charset="UTF-8">
+  <title th:text="${wordValue}">Title</title>
+</head>
+<body>
+  <form action="#" th:object="${definition}" method="post">
+    <select name="antonyms" th:field="*{wordClass}">
+      <option th:each="class : ${classes}"
+              th:value="${class}"
+              th:text="${class}">word classes</option>
+    </select>
+    <p>Definition: <input type="text" th:field="*{definitionValue}" /></p>
+    <p>Examples: <input type="text" th:field="*{examples}" /></p>
+    <p><input type="submit" value="Submit" /> <input type="reset" value="Reset" /></p>
+  </form>
+
+</body>
+</html>
