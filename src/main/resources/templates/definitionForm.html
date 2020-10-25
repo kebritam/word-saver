@@ -7,7 +7,7 @@
 <body>
   <form action="#" th:object="${definition}" method="post">
     <select name="antonyms" th:field="*{wordClass}">
-      <option th:each="class : ${classes}"
+      <option th:each="class : ${word.wordClasses}"
               th:value="${class}"
               th:text="${class}">word classes</option>
     </select>

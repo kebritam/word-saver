@@ -49,6 +49,7 @@ public class DefinitionController {
     public String submitAddDefinition(@ModelAttribute Definition definition, @PathVariable String wordValue){
         Word savedWord=wordService.findByWord(wordValue);
         savedWord.getDefinitions().add(definition);
+        wordService.save(savedWord);
         return "redirect:/word/"+wordValue+"/show";
     }
 
