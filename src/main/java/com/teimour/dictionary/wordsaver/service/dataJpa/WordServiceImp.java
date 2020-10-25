@@ -1,6 +1,7 @@
 package com.teimour.dictionary.wordsaver.service.dataJpa;
 
 import com.teimour.dictionary.wordsaver.domain.Word;
+import com.teimour.dictionary.wordsaver.exception.NotFoundException;
 import com.teimour.dictionary.wordsaver.repository.WordRepository;
 import com.teimour.dictionary.wordsaver.service.WordService;
 import lombok.extern.slf4j.Slf4j;
@@ -32,7 +33,7 @@ public class WordServiceImp implements WordService {
         if (word.isPresent()){
             return word.get();
         } else {
-            throw new NullPointerException();// TODO: 10/16/2020 implement better exception
+            throw new NotFoundException("word not found");
         }
     }
 
@@ -42,7 +43,7 @@ public class WordServiceImp implements WordService {
         if (wordOptional.isPresent()){
             return wordOptional.get();
         } else {
-            throw new NullPointerException(); // TODO: 10/18/2020 implement better exception 
+            throw new NotFoundException("word not found");
         }
     }
 

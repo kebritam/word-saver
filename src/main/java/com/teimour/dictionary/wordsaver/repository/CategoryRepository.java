@@ -3,6 +3,7 @@ package com.teimour.dictionary.wordsaver.repository;
 import com.teimour.dictionary.wordsaver.domain.Category;
 import org.springframework.data.jpa.repository.JpaRepository;
 
+import java.util.Optional;
 import java.util.UUID;
 
 /**
@@ -13,5 +14,5 @@ import java.util.UUID;
 
 public interface CategoryRepository extends JpaRepository<Category, UUID> {
 
-    Category findByCategoryName(String name);
+    Optional<Category> findByCategoryName(String name);
 }

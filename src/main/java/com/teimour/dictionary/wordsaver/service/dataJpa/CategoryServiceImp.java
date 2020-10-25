@@ -1,6 +1,7 @@
 package com.teimour.dictionary.wordsaver.service.dataJpa;
 
 import com.teimour.dictionary.wordsaver.domain.Category;
+import com.teimour.dictionary.wordsaver.exception.NotFoundException;
 import com.teimour.dictionary.wordsaver.repository.CategoryRepository;
 import com.teimour.dictionary.wordsaver.service.CategoryService;
 import lombok.extern.slf4j.Slf4j;
@@ -32,7 +33,7 @@ public class CategoryServiceImp implements CategoryService {
         if (tagOptional.isPresent()){
             return tagOptional.get();
         } else{
-            throw new NullPointerException();// TODO: 10/20/2020 implement better exception
+            throw new NotFoundException("category not found");
         }
     }
 
@@ -43,7 +44,11 @@ public class CategoryServiceImp implements CategoryService {
 
     @Override
     public Category findByName(String name) {
-        return categoryRepository.findByCategoryName(name);
+        Optional<Category> optionalCategory= categoryRepository.findByCategoryName(name);
+        if (optionalCategory.isEmpty()){
+            throw new NotFoundException("category not found");
+        }
+        return optionalCategory.get();
     }
 
     @Override

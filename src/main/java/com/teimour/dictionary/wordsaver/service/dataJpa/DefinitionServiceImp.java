@@ -1,6 +1,7 @@
 package com.teimour.dictionary.wordsaver.service.dataJpa;
 
 import com.teimour.dictionary.wordsaver.domain.Definition;
+import com.teimour.dictionary.wordsaver.exception.NotFoundException;
 import com.teimour.dictionary.wordsaver.repository.DefinitionRepository;
 import com.teimour.dictionary.wordsaver.service.DefinitionService;
 import lombok.extern.slf4j.Slf4j;
@@ -32,7 +33,7 @@ public class DefinitionServiceImp implements DefinitionService {
         if (definition.isPresent())
             return definition.get();
         else
-            throw new NullPointerException();// TODO: 10/16/2020  implement better exception
+            throw new NotFoundException("definition not found");
     }
 
     @Override
