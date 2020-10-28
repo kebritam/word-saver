@@ -58,16 +58,18 @@ class CategoryServiceImpTest {
     @Test
     void findByIdTrue() {
         when(categoryRepository.findById(any())).thenReturn(Optional.of(category1));
-        assertEquals(category1.getId(),categoryServiceImp.findById(any()).getId());
+        assertEquals(category1.getId(), categoryServiceImp.findById(any()).getId());
+        assertEquals(category1, categoryServiceImp.findById(any()));
     }
 
     @Test()
     void findByIdFalse(){
         when(categoryRepository.findById(any())).thenReturn(Optional.empty());
-        assertThrows(NotFoundException.class,
+        NotFoundException exception= assertThrows(NotFoundException.class,
                 ()->categoryServiceImp.findById(any()));
 
-        verify(categoryRepository,times(1)).findById(any());
+        assertEquals(exception.getMessage(), "category not found");
+        verify(categoryRepository).findById(any());
     }
 
     @Test
@@ -76,14 +78,25 @@ class CategoryServiceImpTest {
         assertEquals(2, categoryServiceImp.findAll().size());
         assertEquals(Set.of(category1, category2), categoryServiceImp.findAll());
         assertNotEquals(Set.of(category1), categoryServiceImp.findAll());
+        verify(categoryRepository, times(3)).findAll();
     }
 
     @Test
-    void findByName() {
+    void findByNameTrue() {
         when(categoryRepository.findByCategoryName(anyString())).thenReturn(Optional.of(category2));
         assertEquals(category2, categoryServiceImp.findByName(anyString()));
         when(categoryRepository.findByCategoryName(anyString())).thenReturn(Optional.of(category1));
         assertEquals(category1, categoryServiceImp.findByName(anyString()));
+    }
+
+    @Test
+    void findByNameFalse() {
+        when(categoryRepository.findByCategoryName(anyString())).thenReturn(Optional.empty());
+        NotFoundException exception= assertThrows(NotFoundException.class,
+                ()-> categoryServiceImp.findByName(anyString()));
+
+        assertEquals(exception.getMessage(), "category not found");
+        verify(categoryRepository).findByCategoryName(anyString());
     }
 
     @Test
@@ -94,6 +107,15 @@ class CategoryServiceImpTest {
         verify(categoryRepository).save(any());
         assertEquals(category.getId(),savedCategory.getId());
         assertEquals("forInstance",category.getCategoryName());
+    }
+
+    @Test
+    void updateBySave() {
+        when(categoryRepository.save(any())).thenReturn(category1);
+        Category savedCategory=categoryServiceImp.save(any());
+        savedCategory.setCategoryName("something else");
+        assertEquals(category1.getId(), savedCategory.getId());
+        assertEquals(category1, savedCategory);
     }
 
     @Test
