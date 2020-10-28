@@ -59,12 +59,12 @@ public class CategoryServiceImp implements CategoryService {
     @Override
     public void delete(Category object) {
         categoryRepository.delete(object);
-        log.info("category deleted");
+        log.info("tag deleted");
     }
 
     @Override
     public void deleteById(UUID uuid) {
         categoryRepository.deleteById(uuid);
-        log.info("category deleted");
+        log.info("tag deleted");
     }
 }
