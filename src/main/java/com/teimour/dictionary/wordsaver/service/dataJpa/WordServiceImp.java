@@ -75,21 +75,27 @@ public class WordServiceImp implements WordService {
     }
 
     @Override
-    public void addSynonym(Word word1, Word word2) {
+    public void addSynonym(Word processedWord, Word newWord) {
 
-        word1.getSynonyms().forEach(word -> word2.getSynonyms().add(word));
+        processedWord.getSynonyms().forEach(word -> {
+            newWord.getSynonyms().add(word);
+            word.getSynonyms().add(newWord);
+        });
 
-        word1.getSynonyms().add(word2);
-        word2.getSynonyms().add(word1);
+        processedWord.getSynonyms().add(newWord);
+        newWord.getSynonyms().add(processedWord);
     }
 
     @Override
-    public void addAntonym(Word word1, Word word2) {
+    public void addAntonym(Word processedWord, Word newWord) {
 
-        word1.getAntonyms().forEach(word -> word2.getAntonyms().add(word));
+        processedWord.getAntonyms().forEach(word -> {
+            newWord.getAntonyms().add(word);
+            word.getAntonyms().add(newWord);
+        });
 
-        word1.getAntonyms().add(word2);
-        word2.getAntonyms().add(word1);
+        processedWord.getAntonyms().add(newWord);
+        newWord.getAntonyms().add(processedWord);
     }
 
 

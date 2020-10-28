@@ -49,12 +49,12 @@ public class DefinitionServiceImp implements DefinitionService {
     @Override
     public void delete(Definition object) {
         definitionRepository.delete(object);
-        log.info("object deleted.");
+        log.info("definition deleted.");
     }
 
     @Override
     public void deleteById(UUID uuid) {
         definitionRepository.deleteById(uuid);
-        log.info("object deleted.");
+        log.info("definition deleted.");
     }
 }
