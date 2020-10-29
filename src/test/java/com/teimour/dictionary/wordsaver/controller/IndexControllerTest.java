@@ -1,24 +1,21 @@
 package com.teimour.dictionary.wordsaver.controller;
 
+import com.teimour.dictionary.wordsaver.domain.Category;
 import com.teimour.dictionary.wordsaver.service.CategoryService;
+import org.hamcrest.Matchers;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
-import org.springframework.http.MediaType;
 import org.springframework.test.web.servlet.MockMvc;
-import org.springframework.test.web.servlet.ResultMatcher;
-import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
-import org.springframework.test.web.servlet.setup.MockMvcBuilders;
+import java.util.Set;
 
-import static org.junit.jupiter.api.Assertions.*;
+import static org.hamcrest.Matchers.*;
 import static org.mockito.Mockito.*;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
-import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
-import static org.springframework.test.web.servlet.ResultMatcher.matchAll;
 import static org.springframework.test.web.servlet.setup.MockMvcBuilders.standaloneSetup;
 
 /**
@@ -45,12 +42,24 @@ class IndexControllerTest {
 
     @Test
     void getIndex() throws Exception {
+
+        Category category1= Category.builder().categoryName("one").build();
+
+        when(categoryService.findAll()).thenReturn(Set.of(category1));
+
         mockMvc.perform(get("/"))
-                .andExpect(matchAll(
-                        status().isOk(),
-                        model().size(1),
-                        model().attributeExists("categoryList")
-                ));
+                .andExpect(status().isOk())
+                .andExpect(model().size(1))
+                .andExpect(model().attributeExists("categoryList"))
+                .andExpect(model().attribute("categoryList", Matchers.hasSize(1)))
+                .andExpect(model().attribute("categoryList", Matchers.hasItem(
+                        allOf(
+                                hasProperty("id"),
+                                hasProperty("categoryName",is("one")),
+                                hasProperty("words")
+                        )))
+                )
+                .andExpect(view().name("index"));
 
         verify(categoryService).findAll();
     }
