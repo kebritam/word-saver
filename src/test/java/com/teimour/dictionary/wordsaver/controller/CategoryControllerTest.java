@@ -9,10 +9,7 @@ import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
-import org.springframework.http.MediaType;
 import org.springframework.test.web.servlet.MockMvc;
-import org.springframework.test.web.servlet.RequestBuilder;
-import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
 import org.springframework.test.web.servlet.setup.MockMvcBuilders;
 
 import java.util.Set;
@@ -67,6 +64,7 @@ class CategoryControllerTest {
     void showCategory() throws Exception{
         when(categoryService.findByName(anyString())).thenReturn(category1);
         mockMvc.perform(get("/category/{name}/show", CATEGORY_ONE_NAME))
+                .andExpect(status().isOk())
                 .andExpect(model().size(2))
                 .andExpect(model().attributeExists("category", "words"))
                 .andExpect(model().attribute("words", category1.getWords()))
@@ -79,6 +77,7 @@ class CategoryControllerTest {
     void editCategory() throws Exception {
         when(categoryService.findByName(anyString())).thenReturn(category2);
         mockMvc.perform(get("/category/{name}/edit", CATEGORY_TWO_NAME))
+                .andExpect(status().isOk())
                 .andExpect(model().attributeExists("category"))
                 .andExpect(model().attribute("category", categoryService.findByName(anyString())))
                 .andExpect(view().name("categoryForm"));
@@ -89,14 +88,10 @@ class CategoryControllerTest {
     @Test
     void submitEditCategory() throws Exception {
         when(categoryService.findByName(anyString())).thenReturn(category2);
-        RequestBuilder request=MockMvcRequestBuilders
-                .post("/category/{name}/edit", CATEGORY_TWO_NAME)
-                .contentType(MediaType.MULTIPART_FORM_DATA)
-                .flashAttr("category", new Category());
 
-        mockMvc.perform(request)
-                .andExpect(redirectedUrl("/"))
-                .andReturn();
+        mockMvc.perform(post("/category/{name}/edit", CATEGORY_TWO_NAME))
+            .andExpect(status().is3xxRedirection())
+            .andExpect(redirectedUrl("/"));
 
         verify(categoryService).findByName(anyString());
         verify(categoryService).save(any());
@@ -105,6 +100,7 @@ class CategoryControllerTest {
     @Test
     void newCategory() throws Exception {
         mockMvc.perform(get("/category/new"))
+                .andExpect(status().isOk())
                 .andExpect(model().attributeExists("category"))
                 .andExpect(view().name("categoryForm"));
     }
@@ -112,6 +108,7 @@ class CategoryControllerTest {
     @Test
     void submitNewCategory() throws Exception {
         mockMvc.perform(post("/category/new"))
+                .andExpect(status().is3xxRedirection())
                 .andExpect(redirectedUrl("/"));
 
         verify(categoryService).save(any());
