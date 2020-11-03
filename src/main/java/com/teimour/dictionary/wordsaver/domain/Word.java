@@ -3,6 +3,9 @@ package com.teimour.dictionary.wordsaver.domain;
 import lombok.*;
 
 import javax.persistence.*;
+import javax.validation.Valid;
+import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.NotEmpty;
 import java.util.Set;
 import java.util.UUID;
 
@@ -23,37 +26,41 @@ public class Word {
     @Id
     private final UUID uuid=UUID.randomUUID();
 
+    @NotBlank
     private String wordValue;
 
+    @NotEmpty
     @Enumerated(value = EnumType.STRING)
     @ElementCollection(targetClass = WordClasses.class)
     @JoinTable(name = "word_class")
-    private Set<WordClasses> wordClasses;
+    private Set<@Valid WordClasses> wordClasses;
 
     @OneToMany(cascade = CascadeType.ALL)
     @JoinColumn(name = "word_id")
-    private Set<Definition> definitions;
+    private Set<@Valid Definition> definitions;
 
+    @Valid
     @OneToOne(cascade = CascadeType.ALL)
     @JoinColumn(name = "note_id")
     private Note notes;
 
+    @NotBlank
     private String phonetic;
 
     @ManyToMany
     @JoinTable(name = "synonyms",
         joinColumns = @JoinColumn(name = "word_id"),
         inverseJoinColumns = @JoinColumn(name = "synonym_id"))
-    private Set<Word> synonyms;
+    private Set<@Valid Word> synonyms;
 
     @ManyToMany
     @JoinTable(name = "antonyms",
         joinColumns = @JoinColumn(name = "word_id"),
         inverseJoinColumns = @JoinColumn(name = "antonym_id"))
-    private Set<Word> antonyms;
+    private Set<@Valid Word> antonyms;
 
     @ManyToMany(mappedBy = "words")
-    private Set<Category> categories;
+    private Set<@Valid Category> categories;
 
     @Override
     public String toString() {

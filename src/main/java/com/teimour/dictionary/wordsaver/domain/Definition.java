@@ -3,6 +3,10 @@ package com.teimour.dictionary.wordsaver.domain;
 import lombok.*;
 
 import javax.persistence.*;
+import javax.validation.Valid;
+import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.NotEmpty;
+import javax.validation.constraints.NotNull;
 import java.util.Set;
 import java.util.UUID;
 
@@ -23,12 +27,15 @@ public class Definition {
     @Id
     private final UUID uuid=UUID.randomUUID();
 
+    @NotNull
     @Enumerated(value = EnumType.STRING)
     private WordClasses wordClass;
 
+    @NotBlank
     private String definitionValue;
 
+    @NotEmpty
     @OneToMany(cascade = CascadeType.ALL)
     @JoinColumn(name = "definition_id")
-    private Set<Example> examples;
+    private Set<@Valid Example> examples;
 }

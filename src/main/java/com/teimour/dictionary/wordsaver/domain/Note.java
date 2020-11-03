@@ -4,6 +4,7 @@ import lombok.*;
 
 import javax.persistence.Entity;
 import javax.persistence.Id;
+import javax.validation.constraints.NotBlank;
 import java.util.UUID;
 
 /**
@@ -23,6 +24,7 @@ public class Note {
     @Id
     private final UUID uuid=UUID.randomUUID();
 
+    @NotBlank
     private String notesValue;
 
     @Override

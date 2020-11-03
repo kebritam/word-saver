@@ -3,6 +3,9 @@ package com.teimour.dictionary.wordsaver.domain;
 import lombok.*;
 
 import javax.persistence.*;
+import javax.validation.Valid;
+import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.NotEmpty;
 import java.util.Set;
 import java.util.UUID;
 
@@ -23,13 +26,15 @@ public class Category {
     @Id
     private final UUID id=UUID.randomUUID();
 
+    @NotBlank
     private String categoryName;
 
+    @NotEmpty
     @ManyToMany
     @JoinTable(name = "word_category",
             joinColumns = @JoinColumn(name = "category_id"),
             inverseJoinColumns = @JoinColumn(name = "word_id"))
-    private Set<Word> words;
+    private Set<@Valid Word> words;
 
     @Override
     public String toString() {
