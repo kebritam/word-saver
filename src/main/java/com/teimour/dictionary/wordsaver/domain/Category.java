@@ -5,7 +5,6 @@ import lombok.*;
 import javax.persistence.*;
 import javax.validation.Valid;
 import javax.validation.constraints.NotBlank;
-import javax.validation.constraints.NotEmpty;
 import java.util.Set;
 import java.util.UUID;
 
@@ -29,7 +28,6 @@ public class Category {
     @NotBlank
     private String categoryName;
 
-    @NotEmpty
     @ManyToMany
     @JoinTable(name = "word_category",
             joinColumns = @JoinColumn(name = "category_id"),

@@ -11,8 +11,11 @@
               th:value="${class}"
               th:text="${class}">word classes</option>
     </select>
+    <p th:if="${#fields.hasErrors('wordClass')}" th:errors="*{wordClass}">name Error</p>
     <p>Definition: <input type="text" th:field="*{definitionValue}" /></p>
+    <p th:if="${#fields.hasErrors('definitionValue')}" th:errors="*{definitionValue}">name Error</p>
     <p>Examples: <input type="text" th:field="*{examples}" /></p>
+    <p th:if="${#fields.hasErrors('examples')}" th:errors="*{examples}">name Error</p>
     <p><input type="submit" value="Submit" /> <input type="reset" value="Reset" /></p>
   </form>
 

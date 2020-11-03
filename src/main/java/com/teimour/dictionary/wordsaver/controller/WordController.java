@@ -6,6 +6,7 @@ import com.teimour.dictionary.wordsaver.service.CategoryService;
 import com.teimour.dictionary.wordsaver.service.WordService;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 
 /**
@@ -44,7 +45,12 @@ public class WordController {
     }
 
     @PostMapping("/{wordValue}/edit")
-    public String submitEditWord(@ModelAttribute Word word, @PathVariable String wordValue){
+    public String submitEditWord(@ModelAttribute Word word, BindingResult result, @PathVariable String wordValue){
+
+        if (result.hasErrors()){
+            return "wordForm";
+        }
+
         Word savedWord=wordService.findByWord(wordValue);
         savedWord.setWordValue(word.getWordValue());
         savedWord.setNotes(word.getNotes());
@@ -70,7 +76,12 @@ public class WordController {
     }
 
     @PostMapping("/new")
-    public String submitNewWord(@ModelAttribute Word word){
+    public String submitNewWord(@ModelAttribute Word word, BindingResult result){
+
+        if (result.hasErrors()){
+            return "wordForm";
+        }
+
         wordService.save(word);
         return "redirect:/word/"+word.getWordValue()+"/show";
     }

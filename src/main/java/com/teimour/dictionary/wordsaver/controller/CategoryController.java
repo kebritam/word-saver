@@ -5,7 +5,10 @@ import com.teimour.dictionary.wordsaver.service.CategoryService;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
+
+import javax.validation.Valid;
 
 /**
  * @author kebritam
@@ -38,8 +41,13 @@ public class CategoryController {
         return "categoryForm";
     }
 
-    @PostMapping("{name}/edit")
-    public String submitEditCategory(@ModelAttribute Category category, @PathVariable String name){
+    @PostMapping("/{name}/edit")
+    public String submitEditCategory(@Valid @ModelAttribute Category category, BindingResult result,
+                                     @PathVariable String name){
+
+        if (result.hasErrors()){
+            return "categoryForm";
+        }
         Category savedCategory=categoryService.findByName(name);
         savedCategory.setCategoryName(category.getCategoryName());
         categoryService.save(savedCategory);
@@ -54,7 +62,10 @@ public class CategoryController {
     }
 
     @PostMapping("/new")
-    public String submitNewCategory(@ModelAttribute Category category){
+    public String submitNewCategory(@Valid @ModelAttribute Category category, BindingResult result){
+        if (result.hasErrors()){
+            return "categoryForm";
+        }
         categoryService.save(category);
         log.debug(category.getCategoryName());
         log.debug(category.getId().toString());

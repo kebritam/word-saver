@@ -7,6 +7,7 @@ import com.teimour.dictionary.wordsaver.service.DefinitionService;
 import com.teimour.dictionary.wordsaver.service.WordService;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -46,7 +47,13 @@ public class DefinitionController {
     }
 
     @PostMapping("/word/{wordValue}/definition/new")
-    public String submitAddDefinition(@ModelAttribute Definition definition, @PathVariable String wordValue){
+    public String submitAddDefinition(@ModelAttribute Definition definition, BindingResult result,
+                                      @PathVariable String wordValue){
+
+        if (result.hasErrors()){
+            return "definitionForm";
+        }
+
         Word savedWord=wordService.findByWord(wordValue);
         savedWord.getDefinitions().add(definition);
         wordService.save(savedWord);
@@ -62,8 +69,12 @@ public class DefinitionController {
     }
 
     @PostMapping("/word/{wordValue}/definition/{uuid}/edit")
-    public String submitEditDefinition(@ModelAttribute Definition definition, @PathVariable String wordValue,
-                                       @PathVariable UUID uuid){
+    public String submitEditDefinition(@ModelAttribute Definition definition, BindingResult result,
+                                       @PathVariable String wordValue, @PathVariable UUID uuid){
+
+        if (result.hasErrors()){
+            return "definitionForm";
+        }
 
         Word savedWord=wordService.findByWord(wordValue);
         Definition savedDefinition=definitionService.findById(uuid);

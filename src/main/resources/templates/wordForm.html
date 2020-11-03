@@ -7,12 +7,14 @@
 <body>
   <form action="#" th:object="${word}" method="post">
     <p>Word value: <input type="text" th:field="*{wordValue}"/></p>
+    <p th:if="${#fields.hasErrors('wordValue')}" th:errors="*{wordValue}">name Error</p>
     <label>Word Classes: </label>
     <select name="word_classes" th:field="*{wordClasses}" multiple="multiple">
       <option th:each="class : ${classes}"
               th:value="${class}"
               th:text="${class}">Word_Class</option>
     </select>
+    <p th:if="${#fields.hasErrors('wordClasses')}" th:errors="*{wordClasses}">name Error</p>
     
     <label>Categories: </label>
     <select name="categories" th:field="*{categories}" multiple="multiple">
@@ -20,6 +22,7 @@
               th:value="${category.id}"
               th:text="${category.categoryName}">Categories</option>
     </select>
+    <p th:if="${#fields.hasErrors('categories')}" th:errors="*{categories}">name Error</p>
 
     <label>Synonyms: </label>
     <select name="synonyms" th:field="*{synonyms}" multiple="multiple">
@@ -27,6 +30,7 @@
               th:value="${syno.uuid}"
               th:text="${syno.wordValue}">Synonym Words</option>
     </select>
+    <p th:if="${#fields.hasErrors('synonyms')}" th:errors="*{synonyms}">name Error</p>
 
     <label>Antonyms: </label>
     <select name="antonyms" th:field="*{antonyms}" multiple="multiple">
@@ -34,9 +38,13 @@
               th:value="${anto.uuid}"
               th:text="${anto.wordValue}">antonym Words</option>
     </select>
-    <p>Phonetic: <input type="text" th:field="*{phonetic}"/></p>
-    <p>Notes: <textarea rows="4" cols="50" th:field="*{notes.notesValue}"></textarea></p>
+    <p th:if="${#fields.hasErrors('antonyms')}" th:errors="*{antonyms}">name Error</p>
 
+    <p>Phonetic: <input type="text" th:field="*{phonetic}"/></p>
+    <p th:if="${#fields.hasErrors('phonetic')}" th:errors="*{phonetic}">name Error</p>
+
+    <p>Notes: <textarea rows="4" cols="50" th:field="*{notes.notesValue}"></textarea></p>
+    <p th:if="${#fields.hasErrors('notes.notesValue')}" th:errors="*{notes.notesValue}">name Error</p>
 
     <p><input type="submit" value="Submit" /> <input type="reset" value="Reset" /></p>
   </form>
