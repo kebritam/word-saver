@@ -2,6 +2,7 @@ package com.teimour.dictionary.wordsaver.bootstrap;
 
 import com.teimour.dictionary.wordsaver.domain.*;
 import com.teimour.dictionary.wordsaver.service.*;
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.stereotype.Component;
 
@@ -20,7 +21,9 @@ public class StartBootstrap implements CommandLineRunner {
     private final WordService wordService;
     private final CategoryService categoryService;
 
-    public StartBootstrap(WordService wordService, CategoryService categoryService) {
+    public StartBootstrap(@Qualifier("wordServiceImp") WordService wordService,
+                          @Qualifier("categoryServiceImp") CategoryService categoryService) {
+
         this.wordService = wordService;
         this.categoryService = categoryService;
     }

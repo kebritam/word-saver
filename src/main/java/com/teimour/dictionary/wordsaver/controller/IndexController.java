@@ -1,6 +1,7 @@
 package com.teimour.dictionary.wordsaver.controller;
 
 import com.teimour.dictionary.wordsaver.service.CategoryService;
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -18,7 +19,7 @@ public class IndexController {
 
     private final CategoryService categoryService;
 
-    public IndexController(CategoryService categoryService) {
+    public IndexController(@Qualifier("categoryServiceImp") CategoryService categoryService) {
         this.categoryService = categoryService;
     }
 
