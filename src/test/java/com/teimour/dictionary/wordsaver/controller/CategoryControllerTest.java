@@ -4,6 +4,7 @@ import com.teimour.dictionary.wordsaver.domain.Category;
 import com.teimour.dictionary.wordsaver.domain.Word;
 import com.teimour.dictionary.wordsaver.service.CategoryService;
 import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;
@@ -86,6 +87,7 @@ class CategoryControllerTest {
     }
 
     @Test
+    @Disabled
     void submitEditCategory() throws Exception {
         when(categoryService.findByName(anyString())).thenReturn(category2);
 
@@ -106,6 +108,7 @@ class CategoryControllerTest {
     }
 
     @Test
+    @Disabled
     void submitNewCategory() throws Exception {
         mockMvc.perform(post("/category/new"))
                 .andExpect(status().is3xxRedirection())

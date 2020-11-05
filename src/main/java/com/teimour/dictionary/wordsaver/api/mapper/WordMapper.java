@@ -16,4 +16,7 @@ public interface WordMapper {
 
     @Mapping(source = "uuid", target = "uuid")
     WordDTO wordToWordDTO(Word word);
+
+    @Mapping(source = "wordValue", target = "wordValue")
+    Word wordDTOToWord(WordDTO wordDTO);
 }

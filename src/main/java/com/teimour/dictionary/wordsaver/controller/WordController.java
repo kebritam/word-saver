@@ -4,7 +4,6 @@ import com.teimour.dictionary.wordsaver.domain.Word;
 import com.teimour.dictionary.wordsaver.domain.WordClasses;
 import com.teimour.dictionary.wordsaver.service.CategoryService;
 import com.teimour.dictionary.wordsaver.service.WordService;
-import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -23,8 +22,7 @@ public class WordController {
     private final WordService wordService;
     private final CategoryService categoryService;
 
-    public WordController(@Qualifier("wordServiceImp") WordService wordService,
-                          @Qualifier("categoryServiceImp") CategoryService categoryService) {
+    public WordController(WordService wordService, CategoryService categoryService) {
         this.wordService = wordService;
         this.categoryService = categoryService;
     }

@@ -1,6 +1,6 @@
 package com.teimour.dictionary.wordsaver.api.controller;
 
-import com.teimour.dictionary.wordsaver.service.WordService;
+import com.teimour.dictionary.wordsaver.api.service.WordServiceDTO;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -13,9 +13,9 @@ import org.springframework.web.bind.annotation.RestController;
 @RestController
 public class WordApiController {
 
-    private final WordService wordService;
+    private final WordServiceDTO wordService;
 
-    public WordApiController(@Qualifier("wordServiceAPI") WordService wordService) {
+    public WordApiController(WordServiceDTO wordService) {
         this.wordService = wordService;
     }
 }

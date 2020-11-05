@@ -1,12 +1,15 @@
 package com.teimour.dictionary.wordsaver.api.service;
 
+import com.teimour.dictionary.wordsaver.api.mapper.WordMapper;
+import com.teimour.dictionary.wordsaver.api.modelDTO.WordDTO;
 import com.teimour.dictionary.wordsaver.domain.Word;
+import com.teimour.dictionary.wordsaver.exception.NotFoundException;
 import com.teimour.dictionary.wordsaver.repository.WordRepository;
-import com.teimour.dictionary.wordsaver.service.WordService;
 import org.springframework.stereotype.Service;
 
+import java.util.HashSet;
+import java.util.Optional;
 import java.util.Set;
-import java.util.UUID;
 
 /**
  * @author kebritam
@@ -15,56 +18,67 @@ import java.util.UUID;
  */
 
 @Service
-public class WordServiceAPI implements WordService {
+public class WordServiceAPI implements WordServiceDTO {
 
     private final WordRepository wordRepository;
+    private final WordMapper wordMapper;
 
-    public WordServiceAPI(WordRepository wordRepository) {
+    public WordServiceAPI(WordRepository wordRepository, WordMapper wordMapper) {
         this.wordRepository = wordRepository;
+        this.wordMapper = wordMapper;
     }
 
     @Override
-    public Word findByWord(String word) {
-        return null;
+    public WordDTO findByWord(String word) {
+        Optional<Word> optionalWord=wordRepository.findByWordValueIgnoreCase(word);
+        if (optionalWord.isEmpty()){
+            throw new NotFoundException("word not found");
+        }
+        return wordMapper.wordToWordDTO(optionalWord.get());
     }
 
     @Override
-    public Set<Word> findAllByWord(String word) {
-        return null;
+    public Set<WordDTO> findAll() {
+        Set<WordDTO> words=new HashSet<>();
+        wordRepository.findAll().forEach(word -> words.add(wordMapper.wordToWordDTO(word)));
+        return words;
     }
 
     @Override
-    public void addSynonym(Word processedWord, Word newWord) {
-
+    public WordDTO create(WordDTO wordDTO) {
+        Word mappedWord=wordMapper.wordDTOToWord(wordDTO);
+        wordRepository.save(mappedWord);
+        return wordMapper.wordToWordDTO(mappedWord);
     }
 
     @Override
-    public void addAntonym(Word processedWord, Word newWord) {
+    public WordDTO update(String word, WordDTO wordDTO) {
+        Optional<Word> optionalWord=wordRepository.findByWordValueIgnoreCase(word);
+        if (optionalWord.isEmpty()){
+            throw new NotFoundException("word not found");
+        }
+        Word mappedWord=wordMapper.wordDTOToWord(wordDTO);
+        Word returnWord=optionalWord.get();
 
+        returnWord.setDefinitions(mappedWord.getDefinitions());
+        returnWord.setSynonyms(mappedWord.getSynonyms());
+        returnWord.setAntonyms(mappedWord.getAntonyms());
+        returnWord.setWordClasses(mappedWord.getWordClasses());
+        returnWord.setPhonetic(mappedWord.getPhonetic());
+        returnWord.setNotes(mappedWord.getNotes());
+        returnWord.setWordValue(mappedWord.getWordValue());
+        returnWord.setCategories(mappedWord.getCategories());
+
+        return wordMapper.wordToWordDTO(wordRepository.save(returnWord));
     }
 
     @Override
-    public Word findById(UUID uuid) {
-        return null;
+    public void delete(String word, WordDTO wordDTO) {
+        Optional<Word> optionalWord=wordRepository.findByWordValueIgnoreCase(word);
+        if (optionalWord.isEmpty()){
+            throw new NotFoundException("word not found");
+        }
+        wordRepository.delete(optionalWord.get());
     }
 
-    @Override
-    public Set<Word> findAll() {
-        return null;
-    }
-
-    @Override
-    public Word save(Word object) {
-        return null;
-    }
-
-    @Override
-    public void delete(Word object) {
-
-    }
-
-    @Override
-    public void deleteById(UUID uuid) {
-
-    }
 }

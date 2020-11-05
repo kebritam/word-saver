@@ -16,4 +16,7 @@ public interface CategoryMapper {
 
     @Mapping(source = "id", target = "uuid" )
     CategoryDTO categoryToCategoryDTO(Category category);
+
+    @Mapping(target = "categoryName", source = "categoryName")
+    Category categoryDTOToCategory(CategoryDTO categoryDTO);
 }

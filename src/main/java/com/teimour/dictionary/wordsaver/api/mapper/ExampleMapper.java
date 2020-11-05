@@ -16,4 +16,7 @@ public interface ExampleMapper {
 
     @Mapping(source = "uuid", target = "uuid")
     ExampleDTO exampleToExampleDTO(Example example);
+
+    @Mapping(source = "exampleValue", target = "exampleValue")
+    Example exampleDTOToExample(ExampleDTO exampleDTO);
 }

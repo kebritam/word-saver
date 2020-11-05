@@ -3,7 +3,6 @@ package com.teimour.dictionary.wordsaver.controller;
 import com.teimour.dictionary.wordsaver.domain.Category;
 import com.teimour.dictionary.wordsaver.service.CategoryService;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -24,7 +23,7 @@ public class CategoryController {
 
     private final CategoryService categoryService;
 
-    public CategoryController(@Qualifier("categoryServiceImp") CategoryService categoryService) {
+    public CategoryController(CategoryService categoryService) {
         this.categoryService = categoryService;
     }
 

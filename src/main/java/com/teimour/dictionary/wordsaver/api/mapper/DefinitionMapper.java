@@ -16,4 +16,7 @@ public interface DefinitionMapper {
 
     @Mapping(source = "uuid", target = "id")
     DefinitionDTO definitionToDefinitionDTO(Definition definition);
+
+    @Mapping(source = "definitionValue", target = "definitionValue")
+    Definition definitionDTOToDefinition(DefinitionDTO definitionDTO);
 }

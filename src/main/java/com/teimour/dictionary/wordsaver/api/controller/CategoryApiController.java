@@ -1,7 +1,6 @@
 package com.teimour.dictionary.wordsaver.api.controller;
 
-import com.teimour.dictionary.wordsaver.service.CategoryService;
-import org.springframework.beans.factory.annotation.Qualifier;
+import com.teimour.dictionary.wordsaver.api.service.CategoryServiceDTO;
 import org.springframework.web.bind.annotation.RestController;
 
 /**
@@ -13,9 +12,9 @@ import org.springframework.web.bind.annotation.RestController;
 @RestController
 public class CategoryApiController {
 
-    private final CategoryService categoryService;
+    private final CategoryServiceDTO categoryService;
 
-    public CategoryApiController(@Qualifier("categoryServiceAPI") CategoryService categoryService) {
+    public CategoryApiController(CategoryServiceDTO categoryService) {
         this.categoryService = categoryService;
     }
 }
