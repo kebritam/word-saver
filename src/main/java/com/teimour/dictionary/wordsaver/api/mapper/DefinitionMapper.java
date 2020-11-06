@@ -4,6 +4,7 @@ import com.teimour.dictionary.wordsaver.api.modelDTO.DefinitionDTO;
 import com.teimour.dictionary.wordsaver.domain.Definition;
 import org.mapstruct.Mapper;
 import org.mapstruct.Mapping;
+import org.mapstruct.factory.Mappers;
 
 /**
  * @author kebritam
@@ -13,6 +14,8 @@ import org.mapstruct.Mapping;
 
 @Mapper
 public interface DefinitionMapper {
+
+    DefinitionMapper INSTANCE= Mappers.getMapper(DefinitionMapper.class);
 
     @Mapping(source = "uuid", target = "id")
     DefinitionDTO definitionToDefinitionDTO(Definition definition);

@@ -1,7 +1,6 @@
 package com.teimour.dictionary.wordsaver.api.controller;
 
 import com.teimour.dictionary.wordsaver.api.service.WordServiceDTO;
-import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.web.bind.annotation.RestController;
 
 /**

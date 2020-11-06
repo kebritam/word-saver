@@ -4,6 +4,7 @@ import com.teimour.dictionary.wordsaver.api.modelDTO.WordDTO;
 import com.teimour.dictionary.wordsaver.domain.Word;
 import org.mapstruct.Mapper;
 import org.mapstruct.Mapping;
+import org.mapstruct.factory.Mappers;
 
 /**
  * @author kebritam
@@ -13,6 +14,8 @@ import org.mapstruct.Mapping;
 
 @Mapper
 public interface WordMapper {
+
+    WordMapper INSTANCE= Mappers.getMapper(WordMapper.class);
 
     @Mapping(source = "uuid", target = "uuid")
     WordDTO wordToWordDTO(Word word);

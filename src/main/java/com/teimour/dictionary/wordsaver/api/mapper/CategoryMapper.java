@@ -4,6 +4,7 @@ import com.teimour.dictionary.wordsaver.api.modelDTO.CategoryDTO;
 import com.teimour.dictionary.wordsaver.domain.Category;
 import org.mapstruct.Mapper;
 import org.mapstruct.Mapping;
+import org.mapstruct.factory.Mappers;
 
 /**
  * @author kebritam
@@ -13,6 +14,8 @@ import org.mapstruct.Mapping;
 
 @Mapper
 public interface CategoryMapper {
+
+    CategoryMapper INSTANCE= Mappers.getMapper(CategoryMapper.class);
 
     @Mapping(source = "id", target = "uuid" )
     CategoryDTO categoryToCategoryDTO(Category category);

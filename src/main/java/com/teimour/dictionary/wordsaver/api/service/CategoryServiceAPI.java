@@ -21,18 +21,16 @@ import java.util.Set;
 public class CategoryServiceAPI implements CategoryServiceDTO {
 
     private final CategoryRepository categoryRepository;
-    private final CategoryMapper categoryMapper;
 
-    public CategoryServiceAPI(CategoryRepository categoryRepository, CategoryMapper categoryMapper) {
+    public CategoryServiceAPI(CategoryRepository categoryRepository) {
         this.categoryRepository = categoryRepository;
-        this.categoryMapper = categoryMapper;
     }
 
     @Override
     public Set<CategoryDTO> findAll() {
         Set<CategoryDTO> categories=new HashSet<>();
         categoryRepository.findAll().forEach(
-                category -> categories.add(categoryMapper.categoryToCategoryDTO(category))
+                category -> categories.add(CategoryMapper.INSTANCE.categoryToCategoryDTO(category))
         );
         return categories;
     }
@@ -43,14 +41,14 @@ public class CategoryServiceAPI implements CategoryServiceDTO {
         if (categoryOptional.isEmpty()){
             throw new NotFoundException("category not found");
         }
-        return categoryMapper.categoryToCategoryDTO(categoryOptional.get());
+        return CategoryMapper.INSTANCE.categoryToCategoryDTO(categoryOptional.get());
     }
 
     @Override
     public CategoryDTO create(CategoryDTO categoryDTO) {
-        Category tempCategory=categoryMapper.categoryDTOToCategory(categoryDTO);
+        Category tempCategory=CategoryMapper.INSTANCE.categoryDTOToCategory(categoryDTO);
         tempCategory = categoryRepository.save(tempCategory);
-        return categoryMapper.categoryToCategoryDTO(tempCategory);
+        return CategoryMapper.INSTANCE.categoryToCategoryDTO(tempCategory);
     }
 
     @Override
@@ -68,10 +66,10 @@ public class CategoryServiceAPI implements CategoryServiceDTO {
         if (optionalCategory.isEmpty()){
             throw new NotFoundException("category not found");
         }
-        Category mappedCategory=categoryMapper.categoryDTOToCategory(categoryDTO);
+        Category mappedCategory=CategoryMapper.INSTANCE.categoryDTOToCategory(categoryDTO);
         Category category=optionalCategory.get();
         category.setCategoryName(mappedCategory.getCategoryName());
         category.setWords(mappedCategory.getWords());
-        return categoryMapper.categoryToCategoryDTO(categoryRepository.save(category));
+        return CategoryMapper.INSTANCE.categoryToCategoryDTO(categoryRepository.save(category));
     }
 }

@@ -26,16 +26,10 @@ public class DefinitionServiceAPI implements DefinitionServiceDTO {
 
     private final DefinitionRepository definitionRepository;
     private final WordRepository wordRepository;
-    private final DefinitionMapper definitionMapper;
-    private final ExampleMapper exampleMapper;
 
-    public DefinitionServiceAPI(DefinitionRepository definitionRepository, WordRepository wordRepository,
-                                DefinitionMapper definitionMapper, ExampleMapper exampleMapper) {
-
+    public DefinitionServiceAPI(DefinitionRepository definitionRepository, WordRepository wordRepository) {
         this.definitionRepository = definitionRepository;
         this.wordRepository = wordRepository;
-        this.definitionMapper = definitionMapper;
-        this.exampleMapper = exampleMapper;
     }
 
     @Override
@@ -46,7 +40,7 @@ public class DefinitionServiceAPI implements DefinitionServiceDTO {
         }
         Set<DefinitionDTO> returnSet=new HashSet<>();
         wordOptional.get().getDefinitions().forEach(
-                definition -> returnSet.add(definitionMapper.definitionToDefinitionDTO(definition))
+                definition -> returnSet.add(DefinitionMapper.INSTANCE.definitionToDefinitionDTO(definition))
         );
         return returnSet;
     }
@@ -57,14 +51,14 @@ public class DefinitionServiceAPI implements DefinitionServiceDTO {
         if (wordOptional.isEmpty()){
             throw new NotFoundException("word not found");
         }
-        Definition savedDefinition= definitionMapper.definitionDTOToDefinition(definitionDTO);
+        Definition savedDefinition= DefinitionMapper.INSTANCE.definitionDTOToDefinition(definitionDTO);
         savedDefinition= definitionRepository.save(savedDefinition);
 
         Word word=wordOptional.get();
         word.getDefinitions().add(savedDefinition);
         wordRepository.save(word);
 
-        return definitionMapper.definitionToDefinitionDTO(savedDefinition);
+        return DefinitionMapper.INSTANCE.definitionToDefinitionDTO(savedDefinition);
     }
 
     @Override
@@ -73,16 +67,16 @@ public class DefinitionServiceAPI implements DefinitionServiceDTO {
         if (wordOptional.isEmpty()){
             throw new NotFoundException("word not found");
         }
-        Definition savedDefinition= definitionMapper.definitionDTOToDefinition(definitionDTO);
+        Definition savedDefinition= DefinitionMapper.INSTANCE.definitionDTOToDefinition(definitionDTO);
         savedDefinition.setWordClass(definitionDTO.getWordClass());
         savedDefinition.setDefinitionValue(definitionDTO.getDefinitionValue());
 
         Set<Example> exampleSet=new HashSet<>();
         definitionDTO.getExamples().forEach(
-                definition -> exampleSet.add(exampleMapper.exampleDTOToExample(definition))
+                definition -> exampleSet.add(ExampleMapper.INSTANCE.exampleDTOToExample(definition))
         );
         savedDefinition.setExamples(exampleSet);
-        return definitionMapper.definitionToDefinitionDTO(definitionRepository.save(savedDefinition));
+        return DefinitionMapper.INSTANCE.definitionToDefinitionDTO(definitionRepository.save(savedDefinition));
     }
 
     @Override

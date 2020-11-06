@@ -4,6 +4,7 @@ import com.teimour.dictionary.wordsaver.api.modelDTO.ExampleDTO;
 import com.teimour.dictionary.wordsaver.domain.Example;
 import org.mapstruct.Mapper;
 import org.mapstruct.Mapping;
+import org.mapstruct.factory.Mappers;
 
 /**
  * @author kebritam
@@ -13,6 +14,8 @@ import org.mapstruct.Mapping;
 
 @Mapper
 public interface ExampleMapper {
+
+    ExampleMapper INSTANCE= Mappers.getMapper(ExampleMapper.class);
 
     @Mapping(source = "uuid", target = "uuid")
     ExampleDTO exampleToExampleDTO(Example example);

@@ -21,11 +21,9 @@ import java.util.Set;
 public class WordServiceAPI implements WordServiceDTO {
 
     private final WordRepository wordRepository;
-    private final WordMapper wordMapper;
 
-    public WordServiceAPI(WordRepository wordRepository, WordMapper wordMapper) {
+    public WordServiceAPI(WordRepository wordRepository) {
         this.wordRepository = wordRepository;
-        this.wordMapper = wordMapper;
     }
 
     @Override
@@ -34,21 +32,21 @@ public class WordServiceAPI implements WordServiceDTO {
         if (optionalWord.isEmpty()){
             throw new NotFoundException("word not found");
         }
-        return wordMapper.wordToWordDTO(optionalWord.get());
+        return WordMapper.INSTANCE.wordToWordDTO(optionalWord.get());
     }
 
     @Override
     public Set<WordDTO> findAll() {
         Set<WordDTO> words=new HashSet<>();
-        wordRepository.findAll().forEach(word -> words.add(wordMapper.wordToWordDTO(word)));
+        wordRepository.findAll().forEach(word -> words.add(WordMapper.INSTANCE.wordToWordDTO(word)));
         return words;
     }
 
     @Override
     public WordDTO create(WordDTO wordDTO) {
-        Word mappedWord=wordMapper.wordDTOToWord(wordDTO);
+        Word mappedWord=WordMapper.INSTANCE.wordDTOToWord(wordDTO);
         wordRepository.save(mappedWord);
-        return wordMapper.wordToWordDTO(mappedWord);
+        return WordMapper.INSTANCE.wordToWordDTO(mappedWord);
     }
 
     @Override
@@ -57,7 +55,7 @@ public class WordServiceAPI implements WordServiceDTO {
         if (optionalWord.isEmpty()){
             throw new NotFoundException("word not found");
         }
-        Word mappedWord=wordMapper.wordDTOToWord(wordDTO);
+        Word mappedWord=WordMapper.INSTANCE.wordDTOToWord(wordDTO);
         Word returnWord=optionalWord.get();
 
         returnWord.setDefinitions(mappedWord.getDefinitions());
@@ -69,7 +67,7 @@ public class WordServiceAPI implements WordServiceDTO {
         returnWord.setWordValue(mappedWord.getWordValue());
         returnWord.setCategories(mappedWord.getCategories());
 
-        return wordMapper.wordToWordDTO(wordRepository.save(returnWord));
+        return WordMapper.INSTANCE.wordToWordDTO(wordRepository.save(returnWord));
     }
 
     @Override
