@@ -71,7 +71,7 @@ public class WordServiceAPI implements WordServiceDTO {
     }
 
     @Override
-    public void delete(String word, WordDTO wordDTO) {
+    public void delete(String word) {
         Optional<Word> optionalWord=wordRepository.findByWordValueIgnoreCase(word);
         if (optionalWord.isEmpty()){
             throw new NotFoundException("word not found");

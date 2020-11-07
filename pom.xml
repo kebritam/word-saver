@@ -117,7 +117,17 @@
                         <compilerArg>
                             -Amapstruct.defaultComponentModel=spring
                         </compilerArg>
+                        <compilerArg>
+                            -Amapstruct.suppressGeneratorTimestamp=true
+                        </compilerArg>
+                        <compilerArg>
+                            -Amapstruct.suppressGeneratorVersionInfoComment=true
+                        </compilerArg>
+                        <compilerArg>
+                            -Amapstruct.verbose=true
+                        </compilerArg>
                     </compilerArgs>
+                    <showWarnings>true</showWarnings>
                 </configuration>
             </plugin>
         </plugins>

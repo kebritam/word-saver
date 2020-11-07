@@ -20,5 +20,5 @@ public interface WordServiceDTO {
 
     WordDTO update(String name, WordDTO wordDTO);
 
-    void delete(String word, WordDTO wordDTO);
+    void delete(String word);
 }
