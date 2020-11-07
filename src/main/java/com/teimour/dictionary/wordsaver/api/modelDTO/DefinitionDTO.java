@@ -6,7 +6,6 @@ import lombok.Getter;
 import lombok.Setter;
 
 import java.util.Set;
-import java.util.UUID;
 
 /**
  * @author kebritam
@@ -19,7 +18,6 @@ import java.util.UUID;
 @AllArgsConstructor
 public class DefinitionDTO {
 
-    private UUID id;
     private WordClasses wordClass;
     private String definitionValue;
     private Set<ExampleDTO> examples;

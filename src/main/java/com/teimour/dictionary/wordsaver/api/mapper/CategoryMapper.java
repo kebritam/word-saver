@@ -17,9 +17,7 @@ public interface CategoryMapper {
 
     CategoryMapper INSTANCE= Mappers.getMapper(CategoryMapper.class);
 
-    @Mapping(source = "id", target = "uuid" )
     CategoryDTO categoryToCategoryDTO(Category category);
 
-    @Mapping(target = "categoryName", source = "categoryName")
     Category categoryDTOToCategory(CategoryDTO categoryDTO);
 }

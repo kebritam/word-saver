@@ -5,7 +5,6 @@ import lombok.Getter;
 import lombok.Setter;
 
 import java.util.Set;
-import java.util.UUID;
 
 /**
  * @author kebritam
@@ -18,7 +17,6 @@ import java.util.UUID;
 @AllArgsConstructor
 public class CategoryDTO {
 
-    private UUID uuid;
     private String categoryName;
     private Set<WordDTO> words;
 }

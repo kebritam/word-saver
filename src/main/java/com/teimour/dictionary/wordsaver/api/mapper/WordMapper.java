@@ -17,9 +17,8 @@ public interface WordMapper {
 
     WordMapper INSTANCE= Mappers.getMapper(WordMapper.class);
 
-    @Mapping(source = "uuid", target = "uuid")
     WordDTO wordToWordDTO(Word word);
 
-    @Mapping(source = "wordValue", target = "wordValue")
+    @Mapping(target = "categories", ignore = true)
     Word wordDTOToWord(WordDTO wordDTO);
 }

@@ -17,9 +17,7 @@ public interface ExampleMapper {
 
     ExampleMapper INSTANCE= Mappers.getMapper(ExampleMapper.class);
 
-    @Mapping(source = "uuid", target = "uuid")
     ExampleDTO exampleToExampleDTO(Example example);
 
-    @Mapping(source = "exampleValue", target = "exampleValue")
     Example exampleDTOToExample(ExampleDTO exampleDTO);
 }

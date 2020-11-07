@@ -17,9 +17,7 @@ public interface DefinitionMapper {
 
     DefinitionMapper INSTANCE= Mappers.getMapper(DefinitionMapper.class);
 
-    @Mapping(source = "uuid", target = "id")
     DefinitionDTO definitionToDefinitionDTO(Definition definition);
 
-    @Mapping(source = "definitionValue", target = "definitionValue")
     Definition definitionDTOToDefinition(DefinitionDTO definitionDTO);
 }
