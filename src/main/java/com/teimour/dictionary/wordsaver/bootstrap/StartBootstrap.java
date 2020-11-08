@@ -171,6 +171,9 @@ public class StartBootstrap implements CommandLineRunner {
         wordService.addSynonym(word1,word3);
         wordService.addAntonym(word1,word4);
 
+        wordService.save(word2);
+        wordService.save(word3);
+        wordService.save(word4);
         wordService.save(word1);
     }
 }

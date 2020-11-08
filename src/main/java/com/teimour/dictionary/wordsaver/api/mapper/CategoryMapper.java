@@ -3,7 +3,6 @@ package com.teimour.dictionary.wordsaver.api.mapper;
 import com.teimour.dictionary.wordsaver.api.modelDTO.CategoryDTO;
 import com.teimour.dictionary.wordsaver.domain.Category;
 import org.mapstruct.Mapper;
-import org.mapstruct.Mapping;
 import org.mapstruct.factory.Mappers;
 
 /**

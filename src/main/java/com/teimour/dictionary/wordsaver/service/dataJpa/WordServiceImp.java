@@ -89,7 +89,7 @@ public class WordServiceImp implements WordService {
     @Override
     public void addAntonym(Word processedWord, Word newWord) {
 
-        processedWord.getAntonyms().forEach(word -> {
+        processedWord.getSynonyms().forEach(word -> {
             newWord.getAntonyms().add(word);
             word.getAntonyms().add(newWord);
         });
