@@ -21,4 +21,18 @@ public interface WordMapper {
 
     @Mapping(target = "categories", ignore = true)
     Word wordDTOToWord(WordDTO wordDTO);
+
+    @Mapping(target = "wordClasses", ignore = true)
+    @Mapping(target = "synonyms", ignore = true)
+    @Mapping(target = "phonetic", ignore = true)
+    @Mapping(target = "notes", ignore = true)
+    @Mapping(target = "definitions", ignore = true)
+    @Mapping(target = "categories", ignore = true)
+    @Mapping(target = "antonyms", ignore = true)
+    @Mapping(source = "value", target = "wordValue")
+    Word stringToWord(String value);
+
+    default String wordToString(Word word){
+        return (word == null) ? null : word.getWordValue();
+    }
 }

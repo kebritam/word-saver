@@ -23,6 +23,6 @@ public class WordDTO {
     private Set<DefinitionDTO> definitions;
     private NoteDTO notes;
     private String phonetic;
-    private Set<WordDTO> synonyms;
-    private Set<WordDTO> antonyms;
+    private Set<String> synonyms;
+    private Set<String> antonyms;
 }
