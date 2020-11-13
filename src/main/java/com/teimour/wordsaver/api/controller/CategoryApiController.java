@@ -28,23 +28,10 @@ public class CategoryApiController {
         return new CategoryListDTO(categoryService.findAll());
     }
 
-    @PostMapping
-    @ResponseStatus(HttpStatus.CREATED)
-    public CategoryListDTO createCategory(@RequestBody CategoryDTO categoryDTO){
-        categoryService.create(categoryDTO);
-        return new CategoryListDTO(categoryService.findAll());
-    }
-
     @GetMapping("/{name}")
     @ResponseStatus(HttpStatus.OK)
     public CategoryDTO getCategory(@PathVariable String name){
         return categoryService.findByName(name);
-    }
-
-    @PutMapping("/{name}")
-    @ResponseStatus(HttpStatus.NO_CONTENT)
-    public CategoryDTO updateCategory(@RequestBody CategoryDTO categoryDTO, @PathVariable String name){
-        return categoryService.update(name, categoryDTO);
     }
 
     @DeleteMapping("/{name}")

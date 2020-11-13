@@ -16,9 +16,5 @@ public interface WordServiceDTO {
 
     Set<WordDTO> findAll();
 
-    WordDTO create(WordDTO wordDTO);
-
-    WordDTO update(String name, WordDTO wordDTO);
-
     void delete(String word);
 }

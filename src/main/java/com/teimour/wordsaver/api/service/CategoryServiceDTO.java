@@ -17,9 +17,5 @@ public interface CategoryServiceDTO {
 
     CategoryDTO findByName(String name);
 
-    CategoryDTO create(CategoryDTO categoryDTO);
-
-    CategoryDTO update(String name, CategoryDTO categoryDTO);
-
     void delete(String name);
 }

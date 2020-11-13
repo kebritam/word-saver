@@ -28,22 +28,10 @@ public class WordApiController {
         return new WordListDTO(wordService.findAll());
     }
 
-    @PostMapping
-    @ResponseStatus(HttpStatus.CREATED)
-    public WordDTO createWord(@RequestBody WordDTO wordDTO){
-        return wordService.create(wordDTO);
-    }
-
     @GetMapping("/{value}")
     @ResponseStatus(HttpStatus.OK)
     public WordDTO getWord(@PathVariable String value){
         return wordService.findByWord(value);
-    }
-
-    @PutMapping("/{value}")
-    @ResponseStatus(HttpStatus.NO_CONTENT)
-    public WordDTO updateWord(@RequestBody WordDTO wordDTO, @PathVariable String value){
-        return wordService.update(value, wordDTO);
     }
 
     @DeleteMapping("/{value}")

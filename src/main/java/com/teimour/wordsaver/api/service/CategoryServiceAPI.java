@@ -45,31 +45,11 @@ public class CategoryServiceAPI implements CategoryServiceDTO {
     }
 
     @Override
-    public CategoryDTO create(CategoryDTO categoryDTO) {
-        Category tempCategory=CategoryMapper.INSTANCE.categoryDTOToCategory(categoryDTO);
-        tempCategory = categoryRepository.save(tempCategory);
-        return CategoryMapper.INSTANCE.categoryToCategoryDTO(tempCategory);
-    }
-
-    @Override
     public void delete(String name) {
         Optional<Category> categoryOptional=categoryRepository.findByCategoryName(name);
         if (categoryOptional.isEmpty()){
             throw new NotFoundException("category not found");
         }
         categoryRepository.delete(categoryOptional.get());
-    }
-
-    @Override
-    public CategoryDTO update(String name, CategoryDTO categoryDTO) {
-        Optional<Category> optionalCategory=categoryRepository.findByCategoryName(name);
-        if (optionalCategory.isEmpty()){
-            throw new NotFoundException("category not found");
-        }
-        Category mappedCategory=CategoryMapper.INSTANCE.categoryDTOToCategory(categoryDTO);
-        Category category=optionalCategory.get();
-        category.setCategoryName(mappedCategory.getCategoryName());
-        category.setWords(mappedCategory.getWords());
-        return CategoryMapper.INSTANCE.categoryToCategoryDTO(categoryRepository.save(category));
     }
 }

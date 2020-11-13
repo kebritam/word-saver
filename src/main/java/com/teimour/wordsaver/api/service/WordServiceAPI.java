@@ -43,34 +43,6 @@ public class WordServiceAPI implements WordServiceDTO {
     }
 
     @Override
-    public WordDTO create(WordDTO wordDTO) {
-        Word mappedWord=WordMapper.INSTANCE.wordDTOToWord(wordDTO);
-        wordRepository.save(mappedWord);
-        return WordMapper.INSTANCE.wordToWordDTO(mappedWord);
-    }
-
-    @Override
-    public WordDTO update(String word, WordDTO wordDTO) {
-        Optional<Word> optionalWord=wordRepository.findByWordValueIgnoreCase(word);
-        if (optionalWord.isEmpty()){
-            throw new NotFoundException("word not found");
-        }
-        Word mappedWord=WordMapper.INSTANCE.wordDTOToWord(wordDTO);
-        Word returnWord=optionalWord.get();
-
-        returnWord.setDefinitions(mappedWord.getDefinitions());
-        returnWord.setSynonyms(mappedWord.getSynonyms());
-        returnWord.setAntonyms(mappedWord.getAntonyms());
-        returnWord.setWordClasses(mappedWord.getWordClasses());
-        returnWord.setPhonetic(mappedWord.getPhonetic());
-        returnWord.setNotes(mappedWord.getNotes());
-        returnWord.setWordValue(mappedWord.getWordValue());
-        returnWord.setCategories(mappedWord.getCategories());
-
-        return WordMapper.INSTANCE.wordToWordDTO(wordRepository.save(returnWord));
-    }
-
-    @Override
     public void delete(String word) {
         Optional<Word> optionalWord=wordRepository.findByWordValueIgnoreCase(word);
         if (optionalWord.isEmpty()){

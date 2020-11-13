@@ -21,6 +21,7 @@ public class WordDTO {
     private String wordValue;
     private Set<WordClasses> wordClasses;
     private Set<DefinitionDTO> definitions;
+    private Set<String> categories;
     private NoteDTO notes;
     private String phonetic;
     private Set<String> synonyms;
