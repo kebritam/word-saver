@@ -1,7 +1,7 @@
 package com.teimour.wordsaver.service.dataJpa;
 
 import com.teimour.wordsaver.domain.Definition;
-import com.teimour.wordsaver.domain.WordClasses;
+import com.teimour.wordsaver.domain.WordClass;
 import com.teimour.wordsaver.exception.NotFoundException;
 import com.teimour.wordsaver.repository.DefinitionRepository;
 import org.junit.jupiter.api.BeforeEach;
@@ -40,11 +40,11 @@ class DefinitionServiceImpTest {
     void setUp() {
         definition1=Definition.builder()
                 .definitionValue("The FIRST definition of tests")
-                .wordClass(WordClasses.ADJECTIVE).build();
+                .wordClass(WordClass.ADJECTIVE).build();
 
         definition2=Definition.builder()
                 .definitionValue("The SECOND definition of tests")
-                .wordClass(WordClasses.VERB).build();
+                .wordClass(WordClass.VERB).build();
     }
 
     @Test
@@ -84,7 +84,7 @@ class DefinitionServiceImpTest {
         when(definitionRepository.save(any())).thenReturn(definition1);
         Definition savedDefinition=definitionServiceImp.save(any());
         definition1.setDefinitionValue("changed");
-        definition1.setWordClass(WordClasses.NOUN);
+        definition1.setWordClass(WordClass.NOUN);
         assertEquals(savedDefinition, definition1);
     }
 

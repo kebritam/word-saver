@@ -1,7 +1,7 @@
 package com.teimour.wordsaver.controller;
 
 import com.teimour.wordsaver.domain.Word;
-import com.teimour.wordsaver.domain.WordClasses;
+import com.teimour.wordsaver.domain.WordClass;
 import com.teimour.wordsaver.service.CategoryService;
 import com.teimour.wordsaver.service.WordService;
 import org.springframework.stereotype.Controller;
@@ -38,7 +38,7 @@ public class WordController {
     @GetMapping("/{wordValue}/edit")
     public String editWord(Model model, @PathVariable String wordValue){
         model.addAttribute("word", wordService.findByWord(wordValue));
-        model.addAttribute("classes", WordClasses.values());
+        model.addAttribute("classes", WordClass.values());
         model.addAttribute("allCategories", categoryService.findAll());
         model.addAttribute("allWords", wordService.findAll());
         return "wordForm";
@@ -69,7 +69,7 @@ public class WordController {
     @GetMapping("/new")
     public String newWord(Model model){
         model.addAttribute("word", new Word());
-        model.addAttribute("classes", WordClasses.values());
+        model.addAttribute("classes", WordClass.values());
         model.addAttribute("allCategories", categoryService.findAll());
         model.addAttribute("allWords", wordService.findAll());
         return "wordForm";

@@ -31,9 +31,9 @@ public class Word {
 
     @NotEmpty
     @Enumerated(value = EnumType.STRING)
-    @ElementCollection(targetClass = WordClasses.class)
+    @ElementCollection(targetClass = WordClass.class)
     @JoinTable(name = "word_class")
-    private Set<@Valid WordClasses> wordClasses;
+    private Set<@Valid WordClass> wordClasses;
 
     @OneToMany(cascade = CascadeType.ALL)
     @JoinColumn(name = "word_id")

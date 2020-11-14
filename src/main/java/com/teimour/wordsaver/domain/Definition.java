@@ -29,7 +29,7 @@ public class Definition {
 
     @NotNull
     @Enumerated(value = EnumType.STRING)
-    private WordClasses wordClass;
+    private WordClass wordClass;
 
     @NotBlank
     private String definitionValue;

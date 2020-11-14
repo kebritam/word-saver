@@ -38,13 +38,13 @@ public class StartBootstrap implements CommandLineRunner {
         Definition definition1= Definition.builder()
                 .definitionValue("when you meet someone say it.")
                 .examples(Set.of(example1,example2))
-                .wordClass(WordClasses.NOUN).build();
+                .wordClass(WordClass.NOUN).build();
 
         Note note1= Note.builder()
                 .notesValue("it's slang.").build();
 
         Word word1= Word.builder()
-                .wordClasses(Set.of(WordClasses.NOUN))
+                .wordClasses(Set.of(WordClass.NOUN))
                 .wordValue("hey")
                 .definitions(Set.of(definition1))
                 .notes(note1)
@@ -74,13 +74,13 @@ public class StartBootstrap implements CommandLineRunner {
         Definition definition2= Definition.builder()
                 .definitionValue("when you meet someone say it.")
                 .examples(Set.of(example3,example4))
-                .wordClass(WordClasses.NOUN).build();
+                .wordClass(WordClass.NOUN).build();
 
         Note note2= Note.builder()
                 .notesValue("it's middle polite.").build();
 
         Word word2= Word.builder()
-                .wordClasses(Set.of(WordClasses.NOUN))
+                .wordClasses(Set.of(WordClass.NOUN))
                 .wordValue("hi")
                 .definitions(Set.of(definition2))
                 .notes(note2)
@@ -111,13 +111,13 @@ public class StartBootstrap implements CommandLineRunner {
         Definition definition3= Definition.builder()
                 .definitionValue("when you meet someone say it.")
                 .examples(Set.of(example5,example6))
-                .wordClass(WordClasses.NOUN).build();
+                .wordClass(WordClass.NOUN).build();
 
         Note note3= Note.builder()
                 .notesValue("it's very polite.").build();
 
         Word word3= Word.builder()
-                .wordClasses(Set.of(WordClasses.NOUN))
+                .wordClasses(Set.of(WordClass.NOUN))
                 .wordValue("hello")
                 .definitions(Set.of(definition3))
                 .notes(note3)
@@ -143,11 +143,11 @@ public class StartBootstrap implements CommandLineRunner {
         Definition definition4= Definition.builder()
                 .definitionValue("when you want to end conversation you will say it.")
                 .examples(Set.of(example7,example8))
-                .wordClass(WordClasses.NOUN).build();
+                .wordClass(WordClass.NOUN).build();
 
 
         Word word4= Word.builder()
-                .wordClasses(Set.of(WordClasses.NOUN))
+                .wordClasses(Set.of(WordClass.NOUN))
                 .wordValue("bye")
                 .definitions(Set.of(definition4))
                 .notes(note1)

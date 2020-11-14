@@ -1,5 +1,6 @@
 package com.teimour.wordsaver.modelDTO;
 
+import com.fasterxml.jackson.annotation.JsonProperty;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.Setter;
@@ -17,5 +18,6 @@ import java.util.Set;
 @AllArgsConstructor
 public class CategoryListDTO {
 
+    @JsonProperty("categories")
     private Set<CategoryDTO> categoryDTOSet;
 }

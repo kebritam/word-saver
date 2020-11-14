@@ -1,7 +1,7 @@
 package com.teimour.wordsaver.controller;
 
 import com.teimour.wordsaver.domain.Word;
-import com.teimour.wordsaver.domain.WordClasses;
+import com.teimour.wordsaver.domain.WordClass;
 import com.teimour.wordsaver.service.CategoryService;
 import com.teimour.wordsaver.service.WordService;
 import org.junit.jupiter.api.BeforeEach;
@@ -71,7 +71,7 @@ class WordControllerTest {
                 .andExpect(status().isOk())
                 .andExpect(model().size(4))
                 .andExpect(model().attribute("word", word1))
-                .andExpect(model().attribute("classes", WordClasses.values()))
+                .andExpect(model().attribute("classes", WordClass.values()))
                 .andExpect(model().attribute("allCategories", word1.getCategories()))
                 .andExpect(model().attribute("allWords", new HashSet<>()))
                 .andExpect(view().name("wordForm"));
@@ -98,7 +98,7 @@ class WordControllerTest {
                 .andExpect(status().isOk())
                 .andExpect(model().size(4))
                 .andExpect(model().attributeExists("word"))
-                .andExpect(model().attribute("classes", WordClasses.values()))
+                .andExpect(model().attribute("classes", WordClass.values()))
                 .andExpect(model().attribute("allCategories", new HashSet<>()))
                 .andExpect(model().attribute("allWords", new HashSet<>()))
                 .andExpect(view().name("wordForm"));

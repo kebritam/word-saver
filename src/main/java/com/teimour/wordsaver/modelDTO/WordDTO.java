@@ -1,6 +1,6 @@
 package com.teimour.wordsaver.modelDTO;
 
-import com.teimour.wordsaver.domain.WordClasses;
+import com.teimour.wordsaver.domain.WordClass;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.Setter;
@@ -19,7 +19,7 @@ import java.util.Set;
 public class WordDTO {
 
     private String wordValue;
-    private Set<WordClasses> wordClasses;
+    private Set<WordClass> wordClasses;
     private Set<DefinitionDTO> definitions;
     private Set<String> categories;
     private NoteDTO notes;

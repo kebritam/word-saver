@@ -6,7 +6,7 @@ package com.teimour.wordsaver.domain;
  * Created on 14/10/2020
  */
 
-public enum WordClasses {
+public enum WordClass {
 
     NOUN,
     VERB,

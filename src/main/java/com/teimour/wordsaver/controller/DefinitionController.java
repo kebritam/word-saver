@@ -2,7 +2,7 @@ package com.teimour.wordsaver.controller;
 
 import com.teimour.wordsaver.domain.Definition;
 import com.teimour.wordsaver.domain.Word;
-import com.teimour.wordsaver.domain.WordClasses;
+import com.teimour.wordsaver.domain.WordClass;
 import com.teimour.wordsaver.service.DefinitionService;
 import com.teimour.wordsaver.service.WordService;
 import org.springframework.stereotype.Controller;
@@ -43,7 +43,7 @@ public class DefinitionController {
     public String addDefinition(Model model, @PathVariable String wordValue){
         model.addAttribute("word", wordService.findByWord(wordValue));
         model.addAttribute("definition", new Definition());
-        model.addAttribute("classes", WordClasses.values());
+        model.addAttribute("classes", WordClass.values());
         return "definitionForm";
     }
 
@@ -65,7 +65,7 @@ public class DefinitionController {
     public String editDefinition(Model model, @PathVariable String wordValue, @PathVariable UUID uuid){
         model.addAttribute("word", wordService.findByWord(wordValue));
         model.addAttribute("definition", definitionService.findById(uuid));
-        model.addAttribute("classes", WordClasses.values());
+        model.addAttribute("classes", WordClass.values());
         return "definitionForm";
     }
 

@@ -2,7 +2,7 @@ package com.teimour.wordsaver.controller;
 
 import com.teimour.wordsaver.domain.Definition;
 import com.teimour.wordsaver.domain.Word;
-import com.teimour.wordsaver.domain.WordClasses;
+import com.teimour.wordsaver.domain.WordClass;
 import com.teimour.wordsaver.service.DefinitionService;
 import com.teimour.wordsaver.service.WordService;
 import org.junit.jupiter.api.BeforeEach;
@@ -49,7 +49,7 @@ class DefinitionControllerTest {
         mockMvc= MockMvcBuilders.standaloneSetup(definitionController).build();
 
         definition1= Definition.builder()
-                .wordClass(WordClasses.VERB)
+                .wordClass(WordClass.VERB)
                 .definitionValue("one").build();
 
     }
@@ -72,7 +72,7 @@ class DefinitionControllerTest {
                 .andExpect(status().isOk())
                 .andExpect(model().attributeExists("word", "definition", "classes"))
                 .andExpect(model().attribute("word", wordService.findByWord(anyString())))
-                .andExpect(model().attribute("classes", WordClasses.values()))
+                .andExpect(model().attribute("classes", WordClass.values()))
                 .andExpect(view().name("definitionForm"));
 
         verify(wordService, times(2)).findByWord(anyString());
@@ -101,7 +101,7 @@ class DefinitionControllerTest {
                 .andExpect(model().attributeExists("word", "definition", "classes"))
                 .andExpect(model().attribute("word", wordService.findByWord("word one")))
                 .andExpect(model().attribute("definition", definitionService.findById(definition1.getUuid())))
-                .andExpect(model().attribute("classes", WordClasses.values()))
+                .andExpect(model().attribute("classes", WordClass.values()))
                 .andExpect(view().name("definitionForm"));
 
         verify(wordService, times(2)).findByWord(anyString());
