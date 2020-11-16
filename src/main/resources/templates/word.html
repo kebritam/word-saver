@@ -22,15 +22,15 @@
   <tr th:each="definition : ${word.definitions}">
     <td th:text="${definition.wordClass}">word class of word</td>
     <td th:text="${definition.definitionValue}">def value</td>
-    <td th:text="${definition.examples}"></td>
+    <td th:text="${definition.examples.stream().toArray()}"></td>
     <td><a href="#" th:href="@{'/word/'+${word.wordValue}+'/definition/'+${definition.uuid}+'/edit'}">Edit</a></td>
     <td><a href="#" th:href="@{'/word/'+${word.wordValue}+'/definition/'+${definition.uuid}+'/remove'}">Remove</a></td>
   </tr>
   </tbody>
 </table>
 <p th:text="'Categories: '+${categoryList}"></p>
-<p th:text="'Synonyms: '+${word.synonyms}"></p>
-<p th:text="'Antonyms: '+${word.antonyms}"></p>
+<p th:text="'Synonyms: '+${wordSynonyms}"></p>
+<p th:text="'Antonyms: '+${wordAntonyms}"></p>
 <p th:text="'Notes: '+${word.notes.notesValue}"></p>
 <a href="#" th:href="@{'/word/'+${word.wordValue}+'/edit'}">Edit</a>
 </body>

@@ -26,9 +26,4 @@ public class Example {
 
     @NotBlank
     private String exampleValue;
-
-    @Override
-    public String toString() {
-        return exampleValue;
-    }
 }

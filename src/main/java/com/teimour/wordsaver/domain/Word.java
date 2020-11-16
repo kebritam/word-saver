@@ -62,8 +62,4 @@ public class Word {
     @ManyToMany(mappedBy = "words")
     private Set<@Valid Category> categories;
 
-    @Override
-    public String toString() {
-        return wordValue;
-    }
 }

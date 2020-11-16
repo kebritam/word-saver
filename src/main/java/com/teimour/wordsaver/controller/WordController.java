@@ -1,13 +1,16 @@
 package com.teimour.wordsaver.controller;
 
-import com.teimour.wordsaver.domain.Word;
-import com.teimour.wordsaver.domain.WordClass;
+import com.teimour.wordsaver.domain.*;
 import com.teimour.wordsaver.service.CategoryService;
 import com.teimour.wordsaver.service.WordService;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
+
+import java.util.Arrays;
+import java.util.HashSet;
+import java.util.Set;
 
 /**
  * @author kebritam
@@ -30,7 +33,18 @@ public class WordController {
     @GetMapping("/{wordValue}/show")
     public String showWord(Model model, @PathVariable String wordValue){
         Word word=wordService.findByWord(wordValue);
-        model.addAttribute("categoryList", word.getCategories());
+        model.addAttribute("wordSynonyms", Arrays.toString(word.getSynonyms()
+                .stream()
+                .map(Word::getWordValue)
+                .toArray(String[]::new)));
+        model.addAttribute("wordAntonyms", Arrays.toString(word.getAntonyms()
+                .stream()
+                .map(Word::getWordValue)
+                .toArray(String[]::new)));
+        model.addAttribute("categoryList", Arrays.toString(word.getCategories()
+                .stream()
+                .map(Category::getCategoryName)
+                .toArray(String[]::new)));
         model.addAttribute("word", word);
         return "word";
     }

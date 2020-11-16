@@ -28,9 +28,4 @@ public class Note {
     @Lob
     @NotBlank
     private String notesValue;
-
-    @Override
-    public String toString() {
-        return notesValue;
-    }
 }
