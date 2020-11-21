@@ -22,7 +22,7 @@
   <tr th:each="definition : ${word.definitions}">
     <td th:text="${definition.wordClass}">word class of word</td>
     <td th:text="${definition.definitionValue}">def value</td>
-    <td th:text="${definition.examples.stream().toArray()}"></td>
+    <td th:text="${definition.examples}"></td>
     <td><a href="#" th:href="@{'/word/'+${word.wordValue}+'/definition/'+${definition.uuid}+'/edit'}">Edit</a></td>
     <td><a href="#" th:href="@{'/word/'+${word.wordValue}+'/definition/'+${definition.uuid}+'/remove'}">Remove</a></td>
   </tr>
