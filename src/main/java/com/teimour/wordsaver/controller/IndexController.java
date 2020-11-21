@@ -13,7 +13,6 @@ import org.springframework.web.bind.annotation.RequestMapping;
  */
 
 @Controller
-@RequestMapping({"","/","/index"})
 public class IndexController {
 
     private final CategoryService categoryService;
@@ -22,9 +21,19 @@ public class IndexController {
         this.categoryService = categoryService;
     }
 
-    @GetMapping
+    @GetMapping("/index")
     public String getIndex(Model model){
         model.addAttribute("categoryList", categoryService.findAll());
         return "index";
+    }
+
+    @GetMapping("/home")
+    public String getHome(){
+        return "home";
+    }
+
+    @GetMapping("/login")
+    public String getLogin(){
+        return "login";
     }
 }
