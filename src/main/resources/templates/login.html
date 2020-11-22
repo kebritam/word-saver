@@ -5,10 +5,16 @@
   <title>login</title>
 </head>
 <body>
-<form th:object="${category}" method="post">
-  <p>Category name: <input type="text" th:field="*{categoryName}" /></p>
-  <p th:if="${#fields.hasErrors('categoryName')}" th:errors="*{categoryName}">name Error</p>
-  <p><input type="submit" value="Submit" /></p>
+<div th:if="${param.error}">
+  Invalid username and password.
+</div>
+<div th:if="${param.logout}">
+  You have been logged out.
+</div>
+<form th:action="@{/login}" method="post">
+  <div><label> Username : <input type="text" name="username"/> </label></div>
+  <div><label> Password: <input type="password" name="password"/> </label></div>
+  <div><input type="submit" value="Sign In"/></div>
 </form>
 </body>
 </html>
