@@ -3,6 +3,7 @@ package com.teimour.wordsaver.security.user;
 import lombok.Getter;
 import lombok.Setter;
 
+import javax.validation.constraints.NotBlank;
 import javax.persistence.*;
 import java.util.List;
 
@@ -19,9 +20,14 @@ import java.util.List;
 public class User {
 
     @Id
+    @GeneratedValue(strategy= GenerationType.IDENTITY)
     private int id;
+
+    @NotBlank
     private String username;
+    @NotBlank
     private String password;
+    @NotBlank
     private String email;
 
     @Enumerated(value = EnumType.STRING)

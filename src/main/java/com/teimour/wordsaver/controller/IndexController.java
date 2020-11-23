@@ -20,7 +20,7 @@ public class IndexController {
         this.categoryService = categoryService;
     }
 
-    @GetMapping("/index")
+    @GetMapping({"/",""})
     public String getIndex(Model model){
         model.addAttribute("categoryList", categoryService.findAll());
         return "index";

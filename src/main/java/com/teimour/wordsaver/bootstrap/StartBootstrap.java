@@ -1,12 +1,16 @@
 package com.teimour.wordsaver.bootstrap;
 
 import com.teimour.wordsaver.domain.*;
+import com.teimour.wordsaver.security.user.Authority;
+import com.teimour.wordsaver.security.user.User;
+import com.teimour.wordsaver.security.user.UserRepository;
 import com.teimour.wordsaver.service.CategoryService;
 import com.teimour.wordsaver.service.WordService;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.stereotype.Component;
 
 import java.util.HashSet;
+import java.util.List;
 import java.util.Set;
 
 /**
@@ -20,15 +24,24 @@ public class StartBootstrap implements CommandLineRunner {
 
     private final WordService wordService;
     private final CategoryService categoryService;
+    private final UserRepository userRepository;
 
-    public StartBootstrap(WordService wordService, CategoryService categoryService) {
-
+    public StartBootstrap(WordService wordService, CategoryService categoryService, UserRepository userRepository) {
         this.wordService = wordService;
         this.categoryService = categoryService;
+        this.userRepository = userRepository;
     }
 
     @Override
     public void run(String... args) {
+
+        User user=new User();
+        user.setId(1);
+        user.setEmail("amirali@gmail.com");
+        user.setUsername("kebritam");
+        user.setPassword("$2y$12$ef/FiQiAyAdNnY5vJUQrw.VO1DA8AuAjbBp6UqnCVbCrMTMXw2uP2");
+        user.setAuthorities(List.of(Authority.ROLE_ADMIN,Authority.ROLE_USER));
+        userRepository.save(user);
 
         Example example1= Example.builder()
                 .exampleValue("hey kamran what are you doing.").build();

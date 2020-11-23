@@ -8,10 +8,7 @@ import com.teimour.wordsaver.service.WordService;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.UUID;
 
@@ -22,6 +19,7 @@ import java.util.UUID;
  */
 
 @Controller
+@RequestMapping("/word/{wordValue}/definition")
 public class DefinitionController {
 
     private final DefinitionService definitionService;
@@ -33,13 +31,13 @@ public class DefinitionController {
         this.wordService = wordService;
     }
 
-    @GetMapping("/word/{wordValue}/definition/{uuid}/remove")
+    @GetMapping("/{uuid}/remove")
     public String deleteDefinition(@PathVariable UUID uuid, @PathVariable String wordValue){
         definitionService.deleteById(uuid);
         return "redirect:/word/"+wordValue+"/show";
     }
 
-    @GetMapping("/word/{wordValue}/definition/new")
+    @GetMapping("/new")
     public String addDefinition(Model model, @PathVariable String wordValue){
         model.addAttribute("word", wordService.findByWord(wordValue));
         model.addAttribute("definition", new Definition());
@@ -47,7 +45,7 @@ public class DefinitionController {
         return "definitionForm";
     }
 
-    @PostMapping("/word/{wordValue}/definition/new")
+    @PostMapping("/new")
     public String submitAddDefinition(@ModelAttribute Definition definition, BindingResult result,
                                       @PathVariable String wordValue){
 
@@ -61,7 +59,7 @@ public class DefinitionController {
         return "redirect:/word/"+wordValue+"/show";
     }
 
-    @GetMapping("/word/{wordValue}/definition/{uuid}/edit")
+    @GetMapping("/{uuid}/edit")
     public String editDefinition(Model model, @PathVariable String wordValue, @PathVariable UUID uuid){
         model.addAttribute("word", wordService.findByWord(wordValue));
         model.addAttribute("definition", definitionService.findById(uuid));
@@ -69,7 +67,7 @@ public class DefinitionController {
         return "definitionForm";
     }
 
-    @PostMapping("/word/{wordValue}/definition/{uuid}/edit")
+    @PostMapping("/{uuid}/edit")
     public String submitEditDefinition(@ModelAttribute Definition definition, BindingResult result,
                                        @PathVariable String wordValue, @PathVariable UUID uuid){
 

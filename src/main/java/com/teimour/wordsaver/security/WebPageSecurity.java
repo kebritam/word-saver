@@ -1,5 +1,6 @@
 package com.teimour.wordsaver.security;
 
+import com.teimour.wordsaver.security.user.Authority;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
@@ -18,6 +19,8 @@ public class WebPageSecurity extends WebSecurityConfigurerAdapter {
         http
             .authorizeRequests()
                 .antMatchers("/home", "/login").permitAll()
+                .antMatchers("**/edit","**/new").hasAuthority(Authority.ROLE_ADMIN.name())
+                .antMatchers("**/show","/","/index").hasAnyAuthority(Authority.ROLE_ADMIN.name(), Authority.ROLE_USER.name())
                 .anyRequest().authenticated()
             .and()
             .formLogin()
