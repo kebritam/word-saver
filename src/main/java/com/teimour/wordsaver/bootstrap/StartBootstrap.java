@@ -36,11 +36,17 @@ public class StartBootstrap implements CommandLineRunner {
     public void run(String... args) {
 
         User user=new User();
-        user.setId(1);
         user.setEmail("amirali@gmail.com");
         user.setUsername("kebritam");
         user.setPassword("$2y$12$ef/FiQiAyAdNnY5vJUQrw.VO1DA8AuAjbBp6UqnCVbCrMTMXw2uP2");
-        user.setAuthorities(List.of(Authority.ROLE_ADMIN,Authority.ROLE_USER));
+        user.setAuthorities(List.of(Authority.ROLE_ADMIN));
+        userRepository.save(user);
+
+        user=new User();
+        user.setEmail("teimour@gmail.com");
+        user.setUsername("adamska");
+        user.setPassword("$2y$12$ef/FiQiAyAdNnY5vJUQrw.VO1DA8AuAjbBp6UqnCVbCrMTMXw2uP2");
+        user.setAuthorities(List.of(Authority.ROLE_USER));
         userRepository.save(user);
 
         Example example1= Example.builder()

@@ -1,6 +1,7 @@
 package com.teimour.wordsaver.controller;
 
 import com.teimour.wordsaver.domain.*;
+import com.teimour.wordsaver.resources.View;
 import com.teimour.wordsaver.service.CategoryService;
 import com.teimour.wordsaver.service.WordService;
 import org.springframework.stereotype.Controller;
@@ -44,7 +45,7 @@ public class WordController {
                 .map(Category::getCategoryName)
                 .toArray(String[]::new)));
         model.addAttribute("word", word);
-        return "word";
+        return View.WORD;
     }
 
     @GetMapping("/{wordValue}/edit")
@@ -53,14 +54,13 @@ public class WordController {
         model.addAttribute("classes", WordClass.values());
         model.addAttribute("allCategories", categoryService.findAll());
         model.addAttribute("allWords", wordService.findAll());
-        return "wordForm";
+        return View.WORD_FORM;
     }
 
     @PostMapping("/{wordValue}/edit")
     public String submitEditWord(@ModelAttribute Word word, BindingResult result, @PathVariable String wordValue){
-
         if (result.hasErrors()){
-            return "wordForm";
+            return View.WORD_FORM;
         }
 
         Word savedWord=wordService.findByWord(wordValue);
@@ -72,7 +72,6 @@ public class WordController {
         savedWord.setAntonyms(word.getAntonyms());
         savedWord.setSynonyms(word.getSynonyms());
         savedWord.setDefinitions(word.getDefinitions());
-
         wordService.save(savedWord);
 
         return "redirect:/word/"+savedWord.getWordValue()+"/show";
@@ -84,17 +83,18 @@ public class WordController {
         model.addAttribute("classes", WordClass.values());
         model.addAttribute("allCategories", categoryService.findAll());
         model.addAttribute("allWords", wordService.findAll());
-        return "wordForm";
+
+        return View.WORD_FORM;
     }
 
     @PostMapping("/new")
     public String submitNewWord(@ModelAttribute Word word, BindingResult result){
-
         if (result.hasErrors()){
-            return "wordForm";
+            return View.WORD_FORM;
         }
 
         wordService.save(word);
+
         return "redirect:/word/"+word.getWordValue()+"/show";
     }
 

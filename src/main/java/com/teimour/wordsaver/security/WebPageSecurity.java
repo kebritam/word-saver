@@ -17,10 +17,12 @@ public class WebPageSecurity extends WebSecurityConfigurerAdapter {
     @Override
     protected void configure(HttpSecurity http) throws Exception {
         http
+            .csrf().disable()
             .authorizeRequests()
                 .antMatchers("/home", "/login").permitAll()
                 .antMatchers("**/edit","**/new").hasAuthority(Authority.ROLE_ADMIN.name())
-                .antMatchers("**/show","/","/index").hasAnyAuthority(Authority.ROLE_ADMIN.name(), Authority.ROLE_USER.name())
+                .antMatchers("**/show","/","/index").hasAnyAuthority(Authority.ROLE_ADMIN.name(),
+                Authority.ROLE_USER.name())
                 .anyRequest().authenticated()
             .and()
             .formLogin()

@@ -3,12 +3,14 @@ package com.teimour.wordsaver.controller;
 import com.teimour.wordsaver.domain.Definition;
 import com.teimour.wordsaver.domain.Word;
 import com.teimour.wordsaver.domain.WordClass;
+import com.teimour.wordsaver.resources.View;
 import com.teimour.wordsaver.service.DefinitionService;
 import com.teimour.wordsaver.service.WordService;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.servlet.view.RedirectView;
 
 import java.util.UUID;
 
@@ -32,9 +34,9 @@ public class DefinitionController {
     }
 
     @GetMapping("/{uuid}/remove")
-    public String deleteDefinition(@PathVariable UUID uuid, @PathVariable String wordValue){
+    public RedirectView deleteDefinition(@PathVariable UUID uuid, @PathVariable String wordValue){
         definitionService.deleteById(uuid);
-        return "redirect:/word/"+wordValue+"/show";
+        return new RedirectView("/word/"+wordValue+"/show");
     }
 
     @GetMapping("/new")
@@ -42,7 +44,7 @@ public class DefinitionController {
         model.addAttribute("word", wordService.findByWord(wordValue));
         model.addAttribute("definition", new Definition());
         model.addAttribute("classes", WordClass.values());
-        return "definitionForm";
+        return View.DEFINITION_FORM;
     }
 
     @PostMapping("/new")
@@ -50,7 +52,7 @@ public class DefinitionController {
                                       @PathVariable String wordValue){
 
         if (result.hasErrors()){
-            return "definitionForm";
+            return View.DEFINITION_FORM;
         }
 
         Word savedWord=wordService.findByWord(wordValue);
@@ -64,7 +66,7 @@ public class DefinitionController {
         model.addAttribute("word", wordService.findByWord(wordValue));
         model.addAttribute("definition", definitionService.findById(uuid));
         model.addAttribute("classes", WordClass.values());
-        return "definitionForm";
+        return View.DEFINITION_FORM;
     }
 
     @PostMapping("/{uuid}/edit")
@@ -72,7 +74,7 @@ public class DefinitionController {
                                        @PathVariable String wordValue, @PathVariable UUID uuid){
 
         if (result.hasErrors()){
-            return "definitionForm";
+            return View.DEFINITION_FORM;
         }
 
         Word savedWord=wordService.findByWord(wordValue);

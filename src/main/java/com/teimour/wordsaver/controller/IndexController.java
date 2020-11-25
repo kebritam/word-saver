@@ -1,5 +1,6 @@
 package com.teimour.wordsaver.controller;
 
+import com.teimour.wordsaver.resources.View;
 import com.teimour.wordsaver.service.CategoryService;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -23,16 +24,17 @@ public class IndexController {
     @GetMapping({"/",""})
     public String getIndex(Model model){
         model.addAttribute("categoryList", categoryService.findAll());
-        return "index";
+
+        return View.INDEX;
     }
 
     @GetMapping("/home")
     public String getHome(){
-        return "home";
+        return View.HOME;
     }
 
     @GetMapping("/login")
     public String getLogin(){
-        return "login";
+        return View.LOGIN;
     }
 }

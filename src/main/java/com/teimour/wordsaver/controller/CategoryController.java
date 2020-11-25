@@ -1,6 +1,7 @@
 package com.teimour.wordsaver.controller;
 
 import com.teimour.wordsaver.domain.Category;
+import com.teimour.wordsaver.resources.View;
 import com.teimour.wordsaver.service.CategoryService;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Controller;
@@ -16,7 +17,6 @@ import javax.validation.Valid;
  * Created on 20/10/2020
  */
 
-@Slf4j
 @Controller
 @RequestMapping("/category")
 public class CategoryController {
@@ -32,13 +32,15 @@ public class CategoryController {
         Category category=categoryService.findByName(name);
         model.addAttribute("category", category);
         model.addAttribute("words", category.getWords());
-        return "category";
+
+        return View.CATEGORY;
     }
 
     @GetMapping("/{name}/edit")
     public String editCategory(Model model, @PathVariable String name){
         model.addAttribute("category", categoryService.findByName(name));
-        return "categoryForm";
+
+        return View.CATEGORY_FORM;
     }
 
     @PostMapping("/{name}/edit")
@@ -46,8 +48,9 @@ public class CategoryController {
                                      @PathVariable String name){
 
         if (result.hasErrors()){
-            return "categoryForm";
+            return View.CATEGORY_FORM;
         }
+
         Category savedCategory=categoryService.findByName(name);
         savedCategory.setCategoryName(category.getCategoryName());
         categoryService.save(savedCategory);
@@ -58,17 +61,18 @@ public class CategoryController {
     @GetMapping("/new")
     public String newCategory(Model model){
         model.addAttribute("category", new Category());
-        return "categoryForm";
+
+        return View.CATEGORY_FORM;
     }
 
     @PostMapping("/new")
     public String submitNewCategory(@Valid @ModelAttribute Category category, BindingResult result){
         if (result.hasErrors()){
-            return "categoryForm";
+            return View.CATEGORY_FORM;
         }
+
         categoryService.save(category);
-        log.debug(category.getCategoryName());
-        log.debug(category.getId().toString());
+
         return "redirect:/";
     }
 }
