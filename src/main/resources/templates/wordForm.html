@@ -46,6 +46,7 @@
     <p>Notes: <textarea rows="4" cols="50" th:field="*{notes.notesValue}"></textarea></p>
     <p th:if="${#fields.hasErrors('notes.notesValue')}" th:errors="*{notes.notesValue}">name Error</p>
 
+    <input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}"/>
     <p><input type="submit" value="Submit" /> <input type="reset" value="Reset" /></p>
   </form>
 </body>

@@ -3,7 +3,6 @@ package com.teimour.wordsaver.controller;
 import com.teimour.wordsaver.domain.Category;
 import com.teimour.wordsaver.resources.View;
 import com.teimour.wordsaver.service.CategoryService;
-import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
