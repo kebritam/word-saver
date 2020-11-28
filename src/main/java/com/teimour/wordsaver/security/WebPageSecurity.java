@@ -21,7 +21,7 @@ public class WebPageSecurity extends WebSecurityConfigurerAdapter {
                 .antMatchers("/home", "/login").permitAll()
                 .antMatchers("**/edit","**/new").hasAuthority(Authority.ROLE_ADMIN.name())
                 .antMatchers("**/show","/","/index").hasAnyAuthority(Authority.ROLE_ADMIN.name(),
-                Authority.ROLE_USER.name())
+                    Authority.ROLE_USER.name())
                 .anyRequest().authenticated()
             .and()
             .formLogin()

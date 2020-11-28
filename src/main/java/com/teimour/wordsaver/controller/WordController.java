@@ -84,13 +84,13 @@ public class WordController {
         model.addAttribute("allCategories", categoryService.findAll());
         model.addAttribute("allWords", wordService.findAll());
 
-        return View.WORD_FORM;
+        return View.NEW_WORD_FORM;
     }
 
     @PostMapping("/new")
     public String submitNewWord(@ModelAttribute Word word, BindingResult result){
         if (result.hasErrors()){
-            return View.WORD_FORM;
+            return View.NEW_WORD_FORM;
         }
 
         wordService.save(word);

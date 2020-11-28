@@ -44,7 +44,7 @@ public class DefinitionController {
         model.addAttribute("word", wordService.findByWord(wordValue));
         model.addAttribute("definition", new Definition());
         model.addAttribute("classes", WordClass.values());
-        return View.DEFINITION_FORM;
+        return View.NEW_DEFINITION_FORM;
     }
 
     @PostMapping("/new")
@@ -52,7 +52,7 @@ public class DefinitionController {
                                       @PathVariable String wordValue){
 
         if (result.hasErrors()){
-            return View.DEFINITION_FORM;
+            return View.NEW_DEFINITION_FORM;
         }
 
         Word savedWord=wordService.findByWord(wordValue);

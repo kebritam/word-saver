@@ -61,13 +61,13 @@ public class CategoryController {
     public String newCategory(Model model){
         model.addAttribute("category", new Category());
 
-        return View.CATEGORY_FORM;
+        return View.NEW_CATEGORY_FORM;
     }
 
     @PostMapping("/new")
     public String submitNewCategory(@Valid @ModelAttribute Category category, BindingResult result){
         if (result.hasErrors()){
-            return View.CATEGORY_FORM;
+            return View.NEW_CATEGORY_FORM;
         }
 
         categoryService.save(category);

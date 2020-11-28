@@ -5,7 +5,7 @@
   <title th:text="${wordValue}">Title</title>
 </head>
 <body>
-  <form action="#" th:object="${definition}" method="post">
+  <form action="#" th:object="${definition}" th:action="@{/word/${wordValue}/definition/${definition.uuid}/edit}" method="post">
     <select name="antonyms" th:field="*{wordClass}">
       <option th:each="class : ${classes}"
               th:value="${class}"
