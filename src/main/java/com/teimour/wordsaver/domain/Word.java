@@ -24,7 +24,8 @@ import java.util.UUID;
 public class Word {
 
     @Id
-    private final UUID uuid=UUID.randomUUID();
+    @GeneratedValue
+    private UUID uuid;
 
     @NotBlank
     private String wordValue;

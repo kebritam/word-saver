@@ -3,6 +3,7 @@ package com.teimour.wordsaver.domain;
 import lombok.*;
 
 import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.validation.constraints.NotNull;
 import java.util.UUID;
@@ -22,7 +23,8 @@ import java.util.UUID;
 public class Note {
 
     @Id
-    private final UUID uuid=UUID.randomUUID();
+    @GeneratedValue
+    private UUID uuid;
 
     @NotNull
     private String notesValue;

@@ -7,6 +7,7 @@ import com.teimour.wordsaver.security.user.UserRepository;
 import com.teimour.wordsaver.service.CategoryService;
 import com.teimour.wordsaver.service.WordService;
 import org.springframework.boot.CommandLineRunner;
+import org.springframework.security.crypto.bcrypt.BCrypt;
 import org.springframework.stereotype.Component;
 
 import java.util.HashSet;
@@ -38,14 +39,14 @@ public class StartBootstrap implements CommandLineRunner {
         User user=new User();
         user.setEmail("amirali@gmail.com");
         user.setUsername("kebritam");
-        user.setPassword("$2y$12$ef/FiQiAyAdNnY5vJUQrw.VO1DA8AuAjbBp6UqnCVbCrMTMXw2uP2");
+        user.setPassword(BCrypt.hashpw("password", BCrypt.gensalt()));
         user.setAuthorities(List.of(Authority.ROLE_ADMIN));
         userRepository.save(user);
 
         user=new User();
         user.setEmail("teimour@gmail.com");
         user.setUsername("adamska");
-        user.setPassword("$2y$12$ef/FiQiAyAdNnY5vJUQrw.VO1DA8AuAjbBp6UqnCVbCrMTMXw2uP2");
+        user.setPassword(BCrypt.hashpw("passwordTwice", BCrypt.gensalt()));
         user.setAuthorities(List.of(Authority.ROLE_USER));
         userRepository.save(user);
 
@@ -164,12 +165,14 @@ public class StartBootstrap implements CommandLineRunner {
                 .examples(Set.of(example7,example8))
                 .wordClass(WordClass.NOUN).build();
 
+        Note note4=Note.builder()
+                .notesValue("this is the end").build();
 
         Word word4= Word.builder()
                 .wordClasses(Set.of(WordClass.NOUN))
                 .wordValue("bye")
                 .definitions(Set.of(definition4))
-                .notes(note1)
+                .notes(note4)
                 .phonetic("bai")
                 .antonyms(new HashSet<>())
                 .synonyms(new HashSet<>())

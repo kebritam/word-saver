@@ -23,7 +23,8 @@ import java.util.UUID;
 public class Category {
 
     @Id
-    private final UUID id=UUID.randomUUID();
+    @GeneratedValue
+    private UUID id;
 
     @NotBlank
     private String categoryName;

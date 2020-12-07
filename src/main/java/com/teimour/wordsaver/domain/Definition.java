@@ -25,7 +25,8 @@ import java.util.UUID;
 public class Definition {
 
     @Id
-    private final UUID uuid=UUID.randomUUID();
+    @GeneratedValue
+    private UUID uuid;
 
     @NotNull
     @Enumerated(value = EnumType.STRING)
