@@ -24,9 +24,11 @@ public class Category {
 
     @Id
     @GeneratedValue
+    @Column(name = "category_id")
     private UUID id;
 
     @NotBlank
+    @Column(unique = true, nullable = false, length = 30)
     private String categoryName;
 
     @ManyToMany

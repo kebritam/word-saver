@@ -2,6 +2,7 @@ package com.teimour.wordsaver.domain;
 
 import lombok.*;
 
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
@@ -24,6 +25,7 @@ public class Note {
 
     @Id
     @GeneratedValue
+    @Column(name = "note_id")
     private UUID uuid;
 
     @NotNull

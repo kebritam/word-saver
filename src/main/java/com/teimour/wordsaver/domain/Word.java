@@ -25,9 +25,11 @@ public class Word {
 
     @Id
     @GeneratedValue
+    @Column(name = "word_id")
     private UUID uuid;
 
     @NotBlank
+    @Column(length = 30, unique = true, nullable = false)
     private String wordValue;
 
     @NotEmpty
@@ -46,6 +48,7 @@ public class Word {
     private Note notes;
 
     @NotBlank
+    @Column(length = 60, nullable = false)
     private String phonetic;
 
     @ManyToMany

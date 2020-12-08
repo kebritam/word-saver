@@ -26,6 +26,7 @@ public class Definition {
 
     @Id
     @GeneratedValue
+    @Column(name = "definition_id")
     private UUID uuid;
 
     @NotNull
