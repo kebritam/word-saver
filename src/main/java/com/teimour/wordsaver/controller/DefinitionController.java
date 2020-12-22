@@ -28,15 +28,17 @@ public class DefinitionController {
     private final WordService wordService;
 
     public DefinitionController(DefinitionService definitionService, WordService wordService) {
-
         this.definitionService = definitionService;
         this.wordService = wordService;
     }
 
     @GetMapping("/{uuid}/remove")
-    public RedirectView deleteDefinition(@PathVariable UUID uuid, @PathVariable String wordValue){
-        definitionService.deleteById(uuid);
-        return new RedirectView("/word/"+wordValue+"/show");
+    public RedirectView deleteDefinition(@PathVariable UUID uuid, @PathVariable String wordValue) {
+        Word relatedWord = wordService.findByWord(wordValue);
+        definitionService.deleteDefinition(relatedWord, uuid);
+        wordService.save(relatedWord);
+
+        return new RedirectView("/word/" + wordValue + "/show");
     }
 
     @GetMapping("/new")
@@ -62,28 +64,32 @@ public class DefinitionController {
     }
 
     @GetMapping("/{uuid}/edit")
-    public String editDefinition(Model model, @PathVariable String wordValue, @PathVariable UUID uuid){
-        model.addAttribute("word", wordService.findByWord(wordValue));
-        model.addAttribute("definition", definitionService.findById(uuid));
+    public String editDefinition(Model model, @PathVariable String wordValue, @PathVariable UUID uuid) {
+        Word relatedWord = wordService.findByWord(wordValue);
+
+        model.addAttribute("word", relatedWord);
         model.addAttribute("classes", WordClass.values());
+        model.addAttribute("definition", definitionService.findDefinitionById(relatedWord, uuid));
+
         return View.DEFINITION_FORM;
     }
 
     @PostMapping("/{uuid}/edit")
     public String submitEditDefinition(@ModelAttribute Definition definition, BindingResult result,
-                                       @PathVariable String wordValue, @PathVariable UUID uuid){
+                                       @PathVariable String wordValue, @PathVariable String uuid) {
 
         if (result.hasErrors()){
             return View.DEFINITION_FORM;
         }
 
-        Word savedWord=wordService.findByWord(wordValue);
-        Definition savedDefinition=definitionService.findById(uuid);
-        savedDefinition.setDefinitionValue(definition.getDefinitionValue());
-        savedDefinition.setWordClass(definition.getWordClass());
-        savedDefinition.setExamples(definition.getExamples());
-        savedWord.getDefinitions().add(savedDefinition);
-        wordService.save(savedWord);
-        return "redirect:/word/"+wordValue+"/show";
+        Word relatedWord = wordService.findByWord(wordValue);
+        Definition presentDefinition = definitionService.findDefinitionById(relatedWord, UUID.fromString(uuid));
+        presentDefinition.setDefinitionValue(definition.getDefinitionValue());
+        presentDefinition.setWordClass(definition.getWordClass());
+        presentDefinition.setExamples(definition.getExamples());
+        relatedWord.getDefinitions().add(presentDefinition);
+        wordService.save(relatedWord);
+
+        return "redirect:/word/" + wordValue + "/show";
     }
 }
