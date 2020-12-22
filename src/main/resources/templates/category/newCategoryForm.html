@@ -5,7 +5,7 @@
   <title>Title</title>
 </head>
 <body>
-<form th:object="${category}" th:action="@{/${category.categoryName}/new}" method="post">
+<form th:object="${category}" th:action="@{/__${category.categoryName}__/new}" method="post">
   <p>Category name: <input type="text" th:field="*{categoryName}" /></p>
   <p th:if="${#fields.hasErrors('categoryName')}" th:errors="*{categoryName}">name Error</p>
   <input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}"/>
