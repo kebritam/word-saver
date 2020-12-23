@@ -64,8 +64,9 @@ public class WordController {
         }
 
         Word savedWord=wordService.findByWord(wordValue);
+        word.setDefinitions(savedWord.getDefinitions());
         word.setUuid(savedWord.getUuid());
-        wordService.save(savedWord);
+        wordService.save(word);
 
         return "redirect:/word/"+savedWord.getWordValue()+"/show";
     }
