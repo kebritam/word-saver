@@ -12,7 +12,16 @@ import java.util.UUID;
  */
 
 public interface DefinitionService {
-    Definition findDefinitionById(Word word, UUID uuid);
 
-    void deleteDefinition(Word relatedWord, UUID uuid);
+    Definition findDefinitionById(String wordValue, UUID uuid);
+    Definition findDefinitionById(Word relatedWord, UUID uuid);
+
+    void deleteDefinition(String wordValue, UUID uuid);
+    void deleteDefinition(Word word, UUID uuid);
+
+    void addDefinitionToWord(Word word, Definition definition);
+    void addDefinitionToWord(String wordValue, Definition definition);
+
+    void editDefinition(Word word, UUID uuid, Definition definition);
+    void editDefinition(String wordValue,UUID uuid, Definition definition);
 }

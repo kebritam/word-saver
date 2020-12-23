@@ -16,6 +16,12 @@ import java.util.UUID;
 @Service
 public class DefinitionServiceImp implements DefinitionService {
 
+    private final WordService wordService;
+
+    public DefinitionServiceImp(WordService wordService) {
+        this.wordService = wordService;
+    }
+
     @Override
     public Definition findDefinitionById(Word word, UUID uuid) {
         return word.getDefinitions().stream()
@@ -25,8 +31,47 @@ public class DefinitionServiceImp implements DefinitionService {
     }
 
     @Override
-    public void deleteDefinition(Word relatedWord, UUID uuid) {
-        relatedWord.getDefinitions().remove(findDefinitionById(relatedWord, uuid));
+    public Definition findDefinitionById(String wordValue, UUID uuid) {
+        Word relatedWord = wordService.findByWord(wordValue);
+        return findDefinitionById(relatedWord, uuid);
     }
 
+    @Override
+    public void deleteDefinition(Word word, UUID uuid) {
+        word.getDefinitions().remove(findDefinitionById(word, uuid));
+        wordService.save(word);
+    }
+
+    @Override
+    public void deleteDefinition(String wordValue, UUID uuid) {
+        Word relatedWord = wordService.findByWord(wordValue);
+        deleteDefinition(relatedWord, uuid);
+    }
+
+    @Override
+    public void addDefinitionToWord(Word word, Definition definition) {
+        word.getDefinitions().add(definition);
+        wordService.save(word);
+    }
+
+    @Override
+    public void addDefinitionToWord(String wordValue, Definition definition) {
+        Word relatedWord = wordService.findByWord(wordValue);
+        addDefinitionToWord(relatedWord, definition);
+    }
+
+    @Override
+    public void editDefinition(Word word, UUID uuid, Definition definition) {
+        Definition relatedDefinition = findDefinitionById(word, uuid);
+        relatedDefinition.setExamples(definition.getExamples());
+        relatedDefinition.setWordClass(definition.getWordClass());
+        relatedDefinition.setDefinitionValue(definition.getDefinitionValue());
+        wordService.save(word);
+    }
+
+    @Override
+    public void editDefinition(String wordValue,UUID uuid, Definition definition) {
+        Word relatedWord = wordService.findByWord(wordValue);
+        editDefinition(relatedWord, uuid, definition);
+    }
 }

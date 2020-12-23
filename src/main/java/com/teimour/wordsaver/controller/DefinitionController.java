@@ -1,11 +1,9 @@
 package com.teimour.wordsaver.controller;
 
 import com.teimour.wordsaver.domain.Definition;
-import com.teimour.wordsaver.domain.Word;
 import com.teimour.wordsaver.domain.WordClass;
 import com.teimour.wordsaver.resources.View;
 import com.teimour.wordsaver.service.DefinitionService;
-import com.teimour.wordsaver.service.WordService;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -25,25 +23,20 @@ import java.util.UUID;
 public class DefinitionController {
 
     private final DefinitionService definitionService;
-    private final WordService wordService;
 
-    public DefinitionController(DefinitionService definitionService, WordService wordService) {
+    public DefinitionController(DefinitionService definitionService) {
         this.definitionService = definitionService;
-        this.wordService = wordService;
     }
 
     @GetMapping("/{uuid}/remove")
     public RedirectView deleteDefinition(@PathVariable UUID uuid, @PathVariable String wordValue) {
-        Word relatedWord = wordService.findByWord(wordValue);
-        definitionService.deleteDefinition(relatedWord, uuid);
-        wordService.save(relatedWord);
-
+        definitionService.deleteDefinition(wordValue, uuid);
         return new RedirectView("/word/" + wordValue + "/show");
     }
 
     @GetMapping("/new")
     public String addDefinition(Model model, @PathVariable String wordValue){
-        model.addAttribute("word", wordService.findByWord(wordValue));
+        model.addAttribute("wordValue", wordValue);
         model.addAttribute("definition", new Definition());
         model.addAttribute("classes", WordClass.values());
         return View.NEW_DEFINITION_FORM;
@@ -56,21 +49,15 @@ public class DefinitionController {
         if (result.hasErrors()){
             return View.NEW_DEFINITION_FORM;
         }
-
-        Word savedWord=wordService.findByWord(wordValue);
-        savedWord.getDefinitions().add(definition);
-        wordService.save(savedWord);
+        definitionService.addDefinitionToWord(wordValue, definition);
         return "redirect:/word/"+wordValue+"/show";
     }
 
     @GetMapping("/{uuid}/edit")
     public String editDefinition(Model model, @PathVariable String wordValue, @PathVariable UUID uuid) {
-        Word relatedWord = wordService.findByWord(wordValue);
-
-        model.addAttribute("word", relatedWord);
+        model.addAttribute("wordValue", wordValue);
         model.addAttribute("classes", WordClass.values());
-        model.addAttribute("definition", definitionService.findDefinitionById(relatedWord, uuid));
-
+        model.addAttribute("definition", definitionService.findDefinitionById(wordValue, uuid));
         return View.DEFINITION_FORM;
     }
 
@@ -81,16 +68,7 @@ public class DefinitionController {
         if (result.hasErrors()){
             return View.DEFINITION_FORM;
         }
-
-        Word relatedWord = wordService.findByWord(wordValue);
-        Definition presentDefinition = definitionService.findDefinitionById(relatedWord, uuid);
-
-        presentDefinition.setDefinitionValue(definition.getDefinitionValue());
-        presentDefinition.setWordClass(definition.getWordClass());
-        presentDefinition.setExamples(definition.getExamples());
-
-        wordService.save(relatedWord);
-
+        definitionService.editDefinition(wordValue, uuid, definition);
         return "redirect:/word/" + wordValue + "/show";
     }
 }
