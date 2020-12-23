@@ -76,18 +76,19 @@ public class DefinitionController {
 
     @PostMapping("/{uuid}/edit")
     public String submitEditDefinition(@ModelAttribute Definition definition, BindingResult result,
-                                       @PathVariable String wordValue, @PathVariable String uuid) {
+                                       @PathVariable String wordValue, @PathVariable UUID uuid) {
 
         if (result.hasErrors()){
             return View.DEFINITION_FORM;
         }
 
         Word relatedWord = wordService.findByWord(wordValue);
-        Definition presentDefinition = definitionService.findDefinitionById(relatedWord, UUID.fromString(uuid));
+        Definition presentDefinition = definitionService.findDefinitionById(relatedWord, uuid);
+
         presentDefinition.setDefinitionValue(definition.getDefinitionValue());
         presentDefinition.setWordClass(definition.getWordClass());
         presentDefinition.setExamples(definition.getExamples());
-        relatedWord.getDefinitions().add(presentDefinition);
+
         wordService.save(relatedWord);
 
         return "redirect:/word/" + wordValue + "/show";

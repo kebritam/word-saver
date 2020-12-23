@@ -50,14 +50,11 @@ public class StartBootstrap implements CommandLineRunner {
         user.setAuthorities(List.of(Authority.ROLE_USER));
         userRepository.save(user);
 
-        Example example1= Example.builder()
-                .exampleValue("hey kamran what are you doing.").build();
-        Example example2=Example.builder()
-                .exampleValue("hey mamad I hate you.").build();
+
 
         Definition definition1= Definition.builder()
                 .definitionValue("when you meet someone say it.")
-                .examples(Set.of(example1,example2))
+                .examples(Set.of("hey kamran what are you doing.", "hey mamad I hate you."))
                 .wordClass(WordClass.NOUN).build();
 
         Note note1= Note.builder()
@@ -86,14 +83,10 @@ public class StartBootstrap implements CommandLineRunner {
 
 
 
-        Example example3= Example.builder()
-                .exampleValue("hi there.").build();
-        Example example4=Example.builder()
-                .exampleValue("hi stupid.").build();
 
         Definition definition2= Definition.builder()
                 .definitionValue("when you meet someone say it.")
-                .examples(Set.of(example3,example4))
+                .examples(Set.of("hi there.", "hi stupid."))
                 .wordClass(WordClass.NOUN).build();
 
         Note note2= Note.builder()
@@ -123,14 +116,9 @@ public class StartBootstrap implements CommandLineRunner {
 
 
 
-        Example example5= Example.builder()
-                .exampleValue("hello sir.").build();
-        Example example6=Example.builder()
-                .exampleValue("hello doctor.").build();
-
         Definition definition3= Definition.builder()
                 .definitionValue("when you meet someone say it.")
-                .examples(Set.of(example5,example6))
+                .examples(Set.of("hello sir.", "hello doctor."))
                 .wordClass(WordClass.NOUN).build();
 
         Note note3= Note.builder()
@@ -155,14 +143,9 @@ public class StartBootstrap implements CommandLineRunner {
 
 
 
-        Example example7= Example.builder()
-                .exampleValue("bye kamran.").build();
-        Example example8=Example.builder()
-                .exampleValue("bye mamad I hate you.").build();
-
         Definition definition4= Definition.builder()
                 .definitionValue("when you want to end conversation you will say it.")
-                .examples(Set.of(example7,example8))
+                .examples(Set.of("bye kamran.", "bye mamad I hate you."))
                 .wordClass(WordClass.NOUN).build();
 
         Note note4=Note.builder()

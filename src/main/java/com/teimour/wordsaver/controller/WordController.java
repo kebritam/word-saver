@@ -64,14 +64,7 @@ public class WordController {
         }
 
         Word savedWord=wordService.findByWord(wordValue);
-        savedWord.setWordValue(word.getWordValue());
-        savedWord.setNotes(word.getNotes());
-        savedWord.setPhonetic(word.getPhonetic());
-        savedWord.setWordClasses(word.getWordClasses());
-
-        savedWord.setAntonyms(word.getAntonyms());
-        savedWord.setSynonyms(word.getSynonyms());
-        savedWord.setDefinitions(word.getDefinitions());
+        word.setUuid(savedWord.getUuid());
         wordService.save(savedWord);
 
         return "redirect:/word/"+savedWord.getWordValue()+"/show";

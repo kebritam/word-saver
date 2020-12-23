@@ -37,7 +37,7 @@ public class Definition {
     private String definitionValue;
 
     @NotEmpty
-    @OneToMany(cascade = CascadeType.ALL)
+    @ElementCollection
     @JoinColumn(name = "definition_id")
-    private Set<@Valid Example> examples;
+    private Set<String> examples;
 }

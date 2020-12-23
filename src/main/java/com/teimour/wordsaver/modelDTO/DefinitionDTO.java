@@ -20,5 +20,5 @@ public class DefinitionDTO {
 
     private WordClass wordClass;
     private String definitionValue;
-    private Set<ExampleDTO> examples;
+    private Set<String> examples;
 }

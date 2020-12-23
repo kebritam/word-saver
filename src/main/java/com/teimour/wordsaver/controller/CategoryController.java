@@ -51,8 +51,8 @@ public class CategoryController {
         }
 
         Category savedCategory=categoryService.findByName(name);
-        savedCategory.setCategoryName(category.getCategoryName());
-        categoryService.save(savedCategory);
+        category.setId(savedCategory.getId());
+        categoryService.save(category);
 
         return "redirect:/";
     }
