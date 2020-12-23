@@ -34,9 +34,4 @@ public class CategoryApiController {
         return categoryService.findByName(name);
     }
 
-    @DeleteMapping("/{name}")
-    @ResponseStatus(HttpStatus.NO_CONTENT)
-    public void deleteCategory(@PathVariable String name){
-        categoryService.delete(name);
-    }
 }

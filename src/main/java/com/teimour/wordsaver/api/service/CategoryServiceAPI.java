@@ -44,12 +44,4 @@ public class CategoryServiceAPI implements CategoryServiceDTO {
         return CategoryMapper.INSTANCE.categoryToCategoryDTO(categoryOptional.get());
     }
 
-    @Override
-    public void delete(String name) {
-        Optional<Category> categoryOptional=categoryRepository.findByCategoryName(name);
-        if (categoryOptional.isEmpty()){
-            throw new NotFoundException("category not found");
-        }
-        categoryRepository.delete(categoryOptional.get());
-    }
 }

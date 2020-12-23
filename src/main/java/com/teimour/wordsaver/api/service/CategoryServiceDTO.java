@@ -17,5 +17,4 @@ public interface CategoryServiceDTO {
 
     CategoryDTO findByName(String name);
 
-    void delete(String name);
 }

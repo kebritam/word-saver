@@ -42,13 +42,4 @@ public class WordServiceAPI implements WordServiceDTO {
         return words;
     }
 
-    @Override
-    public void delete(String word) {
-        Optional<Word> optionalWord=wordRepository.findByWordValueIgnoreCase(word);
-        if (optionalWord.isEmpty()){
-            throw new NotFoundException("word not found");
-        }
-        wordRepository.delete(optionalWord.get());
-    }
-
 }

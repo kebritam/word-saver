@@ -33,10 +33,4 @@ public class WordApiController {
     public WordDTO getWord(@PathVariable String value){
         return wordService.findByWord(value);
     }
-
-    @DeleteMapping("/{value}")
-    @ResponseStatus(HttpStatus.NO_CONTENT)
-    public void deleteWord(@PathVariable String value){
-        wordService.delete(value);
-    }
 }

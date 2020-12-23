@@ -16,5 +16,4 @@ public interface WordServiceDTO {
 
     Set<WordDTO> findAll();
 
-    void delete(String word);
 }
