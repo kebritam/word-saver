@@ -1,5 +1,6 @@
 package com.teimour.wordsaver.security;
 
+import org.springframework.data.util.Pair;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.User;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -36,28 +37,57 @@ public class DataBaseUserDetailsService implements UserDetailsService {
         String password = "";
         Set<SimpleGrantedAuthority> authorities = new HashSet<>();
 
-        try(Connection connection = dataSource.getConnection();
-            PreparedStatement statement =
-                    connection.prepareStatement("SELECT user_id, password FROM users WHERE username=?");
-            PreparedStatement authorityStatement =
-                    connection.prepareStatement("SELECT authorities FROM user_authorities WHERE user_user_id=?")
-        ) {
-            statement.setObject(1, username);
-            ResultSet result = statement.executeQuery();
-            result.next();
-            int userId = result.getInt("user_id");
-            password = result.getString("password");
+        try(Connection connection = dataSource.getConnection()) {
+            Pair<Integer, String> idAndPassword= getIdAndPassword(username, connection);
+            int userId = idAndPassword.getFirst();
+            password = idAndPassword.getSecond();
 
-            authorityStatement.setObject(1, userId);
-            ResultSet authoritiesResult = authorityStatement.executeQuery();
+            authorities = getAuthorities(userId, connection);
 
-            while (authoritiesResult.next()) {
-                authorities.add(new SimpleGrantedAuthority(authoritiesResult.getString("authorities")));
-            }
         } catch (SQLException e) {
             e.printStackTrace();
         }
 
         return new User(username, password, authorities);
     }
+
+    private Pair<Integer, String> getIdAndPassword(String username, Connection connection) {
+        int id = -1;
+        String password = "";
+        try(PreparedStatement statement =
+                    connection.prepareStatement("SELECT user_id, password FROM users WHERE username=?")
+        ) {
+            statement.setString(1, username);
+            ResultSet result = statement.executeQuery();
+            result.next();
+            id = result.getInt("user_id");
+            password = result.getString("password");
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+
+        if (id != -1) {
+            return Pair.of(id, password);
+        } else {
+            throw new UsernameNotFoundException("username: " + username);
+        }
+    }
+
+    private Set<SimpleGrantedAuthority> getAuthorities(int id, Connection connection) {
+        Set<SimpleGrantedAuthority> authorities = new HashSet<>();
+        try(PreparedStatement statement =
+                    connection.prepareStatement("SELECT authorities FROM user_authorities WHERE user_user_id=?")
+        ) {
+            statement.setInt(1, id);
+            ResultSet resultSet = statement.executeQuery();
+            while (resultSet.next())
+                authorities.add(new SimpleGrantedAuthority(resultSet.getString("authorities")));
+
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+
+        return authorities;
+    }
+
 }
